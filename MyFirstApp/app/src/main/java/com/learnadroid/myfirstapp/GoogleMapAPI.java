@@ -10,6 +10,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -44,13 +45,7 @@ import androidx.fragment.app.FragmentActivity;
 public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
     private GoogleMap mMap;
-    private Button btnFindPath;
     private SearchView searchView;
-    private EditText etDestination;
-    private List<Marker> originMarkers = new ArrayList<>();
-    private List<Marker> destinationMarkers = new ArrayList<>();
-    private List<Polyline> polylinePaths = new ArrayList<>();
-    private ProgressDialog progressDialog;
 
     private Location currentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -65,6 +60,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         setContentView(R.layout.activity_maps);
 
         searchView = (SearchView) findViewById(R.id.search_place);
+
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
             public boolean onQueryTextSubmit(String s) {
@@ -75,25 +71,37 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                     List<Address> addressList = null;
                     try {
                         addressList = geocoder.getFromLocationName(location, 1);
+                        if (addressList != null){
+                            Address address = addressList.get(0);
+                            Toast.makeText(getApplicationContext(), address.toString(), Toast.LENGTH_LONG).show();
+                            LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                            mMap.addMarker(new MarkerOptions().position(latLng).title(location));
+                            mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
+                        }else {
+                            Toast toast = Toast.makeText(getApplicationContext(), "This address could not be found", Toast.LENGTH_LONG);
+                            toast.setGravity(Gravity.CENTER, 0, 0);
+                            toast.show();
+                        }
                     }catch (Exception e)
                     {
+                        Toast toast = Toast.makeText(getApplicationContext(), "This address could not be found", Toast.LENGTH_LONG);
+                        toast.setGravity(Gravity.CENTER, 0, 0);
+                        toast.show();
                         e.printStackTrace();
                     }
-                    Address address = addressList.get(0);
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
 
                 }
 
                 return false;
             }
 
+
             @Override
             public boolean onQueryTextChange(String s) {
                 return false;
             }
         });
+        //searchView.setQuery("Nơ 3", true);
 
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
