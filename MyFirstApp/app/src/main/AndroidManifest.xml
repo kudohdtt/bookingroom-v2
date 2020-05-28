@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".timkiem"></activity>
+        <activity android:name=".cacloaiphong"></activity>
+        <activity android:name=".timkiem" />
         <activity android:name=".dangki" />
         <activity android:name=".Main3Activity" />
         <activity android:name=".Main2Activity" />
