@@ -10,6 +10,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -24,6 +25,7 @@ public class dangki extends AppCompatActivity {
 
     public static final String emailPattern = "[a-zA-Z0-9._-]+@[a-zA-Z]+\\.+[a-z]{2,}";
     public static final String passPattern = "((?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%,.]).{6,20})";
+    public static final String phonePattern ="(09|05)+([0-9]{8})\\b";
     ProgressDialog progressDialog;
     ConnectionClass connectionClass;
     private Button btTieptuc;
@@ -31,9 +33,13 @@ public class dangki extends AppCompatActivity {
     private EditText txtPass;
     private TextView txtValidate;
     private TextView txtKT;
+    private TextView notpass;
+    private TextView notphone;
     private EditText txtHoten;
     private EditText txtTen;
     private EditText txtPhone;
+    private EditText rePass;
+    private CheckBox checkBox;
     //Validation
     private Boolean isValidMail = false;
     private Boolean isValidpPass = false;
@@ -57,6 +63,10 @@ public class dangki extends AppCompatActivity {
         txtHoten = findViewById(R.id.txtHoten);
         txtTen = findViewById(R.id.txtTen);
         txtPhone = findViewById(R.id.txtPhone);
+        notphone = findViewById(R.id.notphone);
+        rePass = findViewById(R.id.txtRepass);
+        notpass = findViewById(R.id.notpass);
+        checkBox = findViewById(R.id.check);
 
 
         connectionClass = new ConnectionClass();
@@ -73,26 +83,41 @@ public class dangki extends AppCompatActivity {
         txtPass.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
             }
-
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 txtKT.setText("");
                 String pass = txtPass.getText().toString().trim();
-                isValidpPass = (pass.matches(passPattern) && s.length() > 0);
+                isValidpPass = (pass.matches(passPattern) && pass.length() > 0);
                 if (!isValidpPass) {
                     txtKT.setTextColor(Color.rgb(255, 0, 0));
                     txtKT.setText("0-9 && a-z && A-Z && @#$%.,");
                 }
-
             }
-
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
+
+        txtPhone.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                notphone.setText("");
+                String phone = txtPhone.getText().toString().trim();
+                isPhone = (phone.matches(phonePattern) && phone.length() > 0);
+                if (!isPhone) {
+                    notphone.setTextColor(Color.rgb(255, 0, 0));
+                    notphone.setText("not a phone number!!");
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
         //validation
         txtMail.addTextChangedListener(new TextWatcher() {
             @Override
@@ -104,10 +129,34 @@ public class dangki extends AppCompatActivity {
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 txtValidate.setText("");
                 String email = txtMail.getText().toString().trim();
-                isValidMail = (email.matches(emailPattern) && s.length() > 0);
+                isValidMail = (email.matches(emailPattern) && email.length() > 0);
                 if (!isValidMail) {
                     txtValidate.setTextColor(Color.rgb(255, 0, 0));
                     txtValidate.setText("Email không hợp lệ");
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+
+        rePass.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                notpass.setText("");
+                String pass = rePass.getText().toString().trim();
+                String truepass = txtPass.getText().toString().trim();
+                isPass = ( truepass.equals(pass) && pass.length() > 0);
+                if (!isPass) {
+                    notpass.setTextColor(Color.rgb(255, 0, 0));
+                    notpass.setText("Mật khẩu không khớp !!");
                 }
             }
 
@@ -186,13 +235,18 @@ public class dangki extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-
-            Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
-
-            if (isSuccess) {
-                startActivity(new Intent(dangki.this, Main2Activity.class));
+            if ( !isPass && !isPhone && !isValidMail && !isValidpPass && name.trim().equals("") && email.trim().equals("") && phone.trim().equals("") &&
+                    username.trim().equals("") && password.trim().equals("") && rePass.getText().toString().trim().equals("") && checkBox.isChecked()) {
+                z = "Please enter all fields....";
+                progressDialog.hide();
+                Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
+            } else {
+                Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
+                if (isSuccess) {
+                    startActivity(new Intent(dangki.this, Main2Activity.class));
+                }
+                progressDialog.hide();
             }
-            progressDialog.hide();
         }
     }
 

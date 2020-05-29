@@ -18,11 +18,11 @@
         android:textSize="14sp"
         android:textStyle="italic"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintHorizontal_bias="0.158"
+        app:layout_constraintHorizontal_bias="0.149"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88" />
+        app:layout_constraintVertical_bias="0.926" />
 
     <ImageView
         android:id="@+id/imageView"
@@ -64,12 +64,12 @@
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.88" />
+        app:layout_constraintVertical_bias="0.926" />
 
     <CheckBox
         android:id="@+id/check"
         android:layout_width="324dp"
-        android:layout_height="55dp"
+        android:layout_height="35dp"
         android:autoText="false"
         android:bufferType="normal"
         android:buttonTint="@color/black"
@@ -86,7 +86,7 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.819" />
+        app:layout_constraintVertical_bias="0.844" />
 
     <EditText
         android:id="@+id/txtHoten"
@@ -178,6 +178,14 @@
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.745" />
+    <TextView
+        android:id="@+id/notphone"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/txtMail"
+        app:layout_constraintEnd_toEndOf="@+id/txtPhone"
+        app:layout_constraintStart_toStartOf="@+id/txtPhone"
+        app:layout_constraintTop_toBottomOf="@+id/txtPhone" />
 
     <TextView
         android:id="@+id/txtValidate"
@@ -197,42 +205,20 @@
         app:layout_constraintStart_toStartOf="@+id/txtPass"
         app:layout_constraintTop_toBottomOf="@+id/txtPass" />
 
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="136dp"
-        android:layout_height="60dp"
-        android:background="@drawable/buttontaskbar_background"
-        android:drawableTop="@android:drawable/ic_menu_search"
-        android:text="Room"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.007"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.998" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="139dp"
-        android:layout_height="60dp"
-        android:background="@drawable/buttontaskbar_background"
-        android:drawableTop="@android:drawable/ic_menu_my_calendar"
-        android:text="Order"
-        android:textAllCaps="false"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="@+id/imageView"
-        app:layout_constraintHorizontal_bias="0.505"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/imageView"
-        app:layout_constraintVertical_bias="1.0" />
+    <TextView
+        android:id="@+id/notpass"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/check"
+        app:layout_constraintEnd_toEndOf="@+id/txtRepass"
+        app:layout_constraintStart_toStartOf="@+id/txtRepass"
+        app:layout_constraintTop_toBottomOf="@+id/txtRepass" />
 
     <Button
         android:id="@+id/button5"
         android:layout_width="136dp"
         android:layout_height="60dp"
-        android:background="@drawable/buttontaskbar_background"
+        android:background="@drawable/button_background_pick"
         android:drawableTop="@android:drawable/ic_menu_myplaces"
         android:text="Profle"
         android:textAllCaps="false"
@@ -242,6 +228,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
+>>>>>>> 8060a42ed4eaea0c1f0745bc37cc4453fd177a97
 
     <ImageView
         android:id="@+id/imageView5"
