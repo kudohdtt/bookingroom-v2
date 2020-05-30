@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -79,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
                     if (con == null) {
                         z = "Please check your internet connection";
                     } else {
-
                         String query = " select * from user where username='" + un + "'and password = '" + pass + "'";
                         Statement stmt = con.createStatement();
                         ResultSet rs = stmt.executeQuery(query);
@@ -102,6 +102,8 @@ public class MainActivity extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
             Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
+            //fix loi
+
             if (isSuccess) {
                 Intent intent = new Intent(MainActivity.this, timkiem.class);
                 startActivity(intent);
