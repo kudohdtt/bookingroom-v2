@@ -33,6 +33,7 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.maps.model.Polyline;
 
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.learnadroid.myfirstapp.actor.Hotel;
 
 
 import java.io.IOException;
@@ -113,30 +114,42 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    private void SearchLocation(String location) {
-        if (location != null && !location.equals("")) {
-            Geocoder geocoder = new Geocoder(GoogleMapAPI.this);
-            List<Address> addressList = null;
-            try {
-                addressList = geocoder.getFromLocationName(location, 1);
-                if (addressList != null) {
-                    Address address = addressList.get(0);
-                    Toast.makeText(getApplicationContext(), address.toString(), Toast.LENGTH_LONG).show();
-                    LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                    mMap.addMarker(new MarkerOptions().position(latLng).title(location));
-                    mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
-                } else {
-                    Toast toast = Toast.makeText(getApplicationContext(), "This address could not be found", Toast.LENGTH_LONG);
-                    toast.setGravity(Gravity.CENTER, 0, 0);
-                    toast.show();
+    private void SearchLocation(ArrayList<Hotel> hotelList) {
+        Toast.makeText(getApplicationContext(), "SearchLocation", Toast.LENGTH_LONG).show();
+
+        for (int i = 0; i < hotelList.size(); i++)
+        {
+            String location = hotelList.get(i).getLocation();
+            if (location != null && !location.equals("")) {
+                Geocoder geocoder = new Geocoder(GoogleMapAPI.this);
+                List<Address> addressList = null;
+                try {
+                    addressList = geocoder.getFromLocationName(location, 1);
+                    if (addressList != null) {
+                        Address address = addressList.get(0);
+
+                        LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
+                        Marker marker ;
+                        marker = mMap.addMarker(new MarkerOptions().position(latLng).title(hotelList.get(i).getName()));
+                        marker.setTag(hotelList.get(i).getId());
+
+                    }
+                } catch (Exception e) {
+
+                    e.printStackTrace();
                 }
-            } catch (Exception e) {
-                Toast toast = Toast.makeText(getApplicationContext(), "This address could not be found", Toast.LENGTH_LONG);
-                toast.setGravity(Gravity.CENTER, 0, 0);
-                toast.show();
-                e.printStackTrace();
             }
         }
+
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener(){
+            @Override
+            public void onInfoWindowClick(Marker marker){
+                Intent intent = new Intent(getApplicationContext(), cacloaiphong.class);
+                intent.putExtra("hotelId", (int) marker.getTag());
+                startActivity(intent);
+            }
+        });
+
     }
 
     private  void  fetchLastLocation(final GoogleMap googleMap) {
@@ -167,6 +180,10 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                                 }
                             });
                             mMap.setMyLocationEnabled(true);
+
+                            ArrayList<Hotel> hotels = FakeDataListHotel();
+
+                            SearchLocation(hotels);
                         }
                     }
                 });
@@ -176,7 +193,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     private void  RequestPermision()
     {
         if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)){
-            Toast.makeText(getApplicationContext(), "shouldShowRequestPermissionRationale", Toast.LENGTH_LONG).show();
+
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
                     .setMessage("This permission is needed because of this and that")
@@ -222,8 +239,23 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         fetchLastLocation(googleMap);
 
+
+
     }
 
+    private ArrayList<Hotel> FakeDataListHotel()
+    {
+        ArrayList<Hotel> hotelList = new ArrayList<Hotel>();
+        for (int i = 0; i < 3; i++) {
+            hotelList.add(new Hotel(i+1, "Hotel +" + i, "Hi", 5, null));
+        }
+
+        hotelList.get(0).setLocation("Bến xe Mỹ Đình");
+        hotelList.get(1).setLocation("Đại học Quốc Gia Hà Nội");
+        hotelList.get(2).setLocation("Đại học sư phạm");
+
+        return  hotelList;
+    }
 
 
     @Override
