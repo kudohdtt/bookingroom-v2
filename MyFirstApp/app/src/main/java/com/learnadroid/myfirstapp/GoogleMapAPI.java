@@ -1,22 +1,22 @@
+
 package com.learnadroid.myfirstapp;
 
 import android.Manifest;
 import android.app.AlertDialog;
-import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Gravity;
-import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.SearchView;
 import android.widget.Toast;
+
+import androidx.annotation.NonNull;
+import androidx.core.app.ActivityCompat;
+import androidx.fragment.app.FragmentActivity;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,23 +26,14 @@ import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
-
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.google.android.gms.maps.model.Polyline;
-
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.learnadroid.myfirstapp.actor.Hotel;
 
-
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
-
-import androidx.annotation.NonNull;
-import androidx.core.app.ActivityCompat;
-import androidx.fragment.app.FragmentActivity;
 
 public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback, GoogleApiClient.OnConnectionFailedListener {
 
@@ -51,7 +42,6 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
 
     private Location currentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
-
 
 
     String place;
@@ -68,24 +58,23 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
             public boolean onQueryTextSubmit(String s) {
                 String location = searchView.getQuery().toString();
 
-                if (location != null && !location.equals("")){
+                if (location != null && !location.equals("")) {
                     Geocoder geocoder = new Geocoder(GoogleMapAPI.this);
                     List<Address> addressList = null;
                     try {
                         addressList = geocoder.getFromLocationName(location, 1);
-                        if (addressList != null){
+                        if (addressList != null) {
                             Address address = addressList.get(0);
                             Toast.makeText(getApplicationContext(), address.toString(), Toast.LENGTH_LONG).show();
                             LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                             mMap.addMarker(new MarkerOptions().position(latLng).title(location));
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
-                        }else {
+                        } else {
                             Toast toast = Toast.makeText(getApplicationContext(), "This address could not be found", Toast.LENGTH_LONG);
                             toast.setGravity(Gravity.CENTER, 0, 0);
                             toast.show();
                         }
-                    }catch (Exception e)
-                    {
+                    } catch (Exception e) {
                         Toast toast = Toast.makeText(getApplicationContext(), "This address could not be found", Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
@@ -117,8 +106,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     private void SearchLocation(ArrayList<Hotel> hotelList) {
         Toast.makeText(getApplicationContext(), "SearchLocation", Toast.LENGTH_LONG).show();
 
-        for (int i = 0; i < hotelList.size(); i++)
-        {
+        for (int i = 0; i < hotelList.size(); i++) {
             String location = hotelList.get(i).getLocation();
             if (location != null && !location.equals("")) {
                 Geocoder geocoder = new Geocoder(GoogleMapAPI.this);
@@ -129,7 +117,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                         Address address = addressList.get(0);
 
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
-                        Marker marker ;
+                        Marker marker;
                         marker = mMap.addMarker(new MarkerOptions().position(latLng).title(hotelList.get(i).getName()));
                         marker.setTag(hotelList.get(i).getId());
 
@@ -141,9 +129,9 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
             }
         }
 
-        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener(){
+        mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
-            public void onInfoWindowClick(Marker marker){
+            public void onInfoWindowClick(Marker marker) {
                 Intent intent = new Intent(getApplicationContext(), cacloaiphong.class);
                 intent.putExtra("hotelId", (int) marker.getTag());
                 startActivity(intent);
@@ -152,7 +140,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    private  void  fetchLastLocation(final GoogleMap googleMap) {
+    private void fetchLastLocation(final GoogleMap googleMap) {
         fusedLocationProviderClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -169,20 +157,8 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                             MarkerOptions mk;
                             mk = new MarkerOptions().position(latLng).title("Your location");
                             mMap.addMarker(mk);
-                            //dmhhung
-                            mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener(){
-                                @Override
-                                public void onInfoWindowClick(Marker marker){
-                                    if(marker.getTitle().equals("Your location")){
-                                        Intent info = new Intent(getApplicationContext(), cacloaiphong.class);
-                                        startActivity(info);
-                                    }
-                                }
-                            });
                             mMap.setMyLocationEnabled(true);
-
                             ArrayList<Hotel> hotels = FakeDataListHotel();
-
                             SearchLocation(hotels);
                         }
                     }
@@ -190,9 +166,8 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    private void  RequestPermision()
-    {
-        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)){
+    private void RequestPermision() {
+        if (ActivityCompat.shouldShowRequestPermissionRationale(this, Manifest.permission.ACCESS_FINE_LOCATION)) {
 
             new AlertDialog.Builder(this)
                     .setTitle("Permission needed")
@@ -201,7 +176,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
                             ActivityCompat.requestPermissions(GoogleMapAPI.this,
-                                    new String[] {Manifest.permission.ACCESS_FINE_LOCATION}, 1);
+                                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
                         }
                     })
                     .setNegativeButton("cancel", new DialogInterface.OnClickListener() {
@@ -212,8 +187,8 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                     })
                     .create().show();
 
-        }else {
-            ActivityCompat.requestPermissions(this, new String[] {Manifest.permission.ACCESS_FINE_LOCATION} , 1);
+        } else {
+            ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, 1);
             Toast.makeText(getApplicationContext(), "requestPermissions", Toast.LENGTH_LONG).show();
         }
 
@@ -240,21 +215,19 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         fetchLastLocation(googleMap);
 
 
-
     }
 
-    private ArrayList<Hotel> FakeDataListHotel()
-    {
+    private ArrayList<Hotel> FakeDataListHotel() {
         ArrayList<Hotel> hotelList = new ArrayList<Hotel>();
         for (int i = 0; i < 3; i++) {
-            hotelList.add(new Hotel(i+1, "Hotel +" + i, "Hi", 5, null));
+            hotelList.add(new Hotel(i + 1, "Hotel +" + i, "Hi", 5, null));
         }
 
         hotelList.get(0).setLocation("Bến xe Mỹ Đình");
         hotelList.get(1).setLocation("Đại học Quốc Gia Hà Nội");
         hotelList.get(2).setLocation("Đại học sư phạm");
 
-        return  hotelList;
+        return hotelList;
     }
 
 

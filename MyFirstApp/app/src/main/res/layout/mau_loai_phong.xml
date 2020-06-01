@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ImageView
+        android:id="@+id/imageviewHinh"
+        android:layout_width="177dp"
+        android:layout_height="170dp"
+        android:padding="10dp" />
+
+    <TextView
+        android:id="@+id/textviewTen"
+        android:paddingTop="24dp"
+        android:layout_width="291dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/imageviewHinh"
+        android:text="Tên"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+    <TextView
+        android:id="@+id/textviewGiuong"
+        android:layout_width="291dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/imageviewHinh"
+        android:layout_below="@id/textviewTen"
+        android:text="Giường"
+        android:textColor="#000000"
+        android:textSize="14sp"/>
+
+
+    <TextView
+        android:id="@+id/textviewDientich"
+        android:layout_width="291dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textviewGiuong"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/imageviewHinh"
+        android:text="Diện tích"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textviewMota"
+        android:layout_width="291dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textviewDientich"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/imageviewHinh"
+        android:text="Mô tả"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textviewGia"
+        android:layout_width="291dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textviewMota"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/imageviewHinh"
+        android:text="Giá"
+        android:textColor="#000000"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/textviewSale"
+        android:layout_width="291dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/textviewGia"
+        android:layout_marginLeft="0dp"
+        android:layout_toRightOf="@+id/imageviewHinh"
+        android:text="Khuyến mãi"
+        android:textColor="#EA0C0C"
+        android:textSize="14sp" />
+
+</RelativeLayout>

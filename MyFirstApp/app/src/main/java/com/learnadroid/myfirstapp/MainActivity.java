@@ -57,61 +57,61 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private class Dologin extends AsyncTask<String, String, String> {
+        private class Dologin extends AsyncTask<String, String, String> {
 
-        String un = username.getText().toString();
-        String pass = password.getText().toString();
-        String z = "";
-        boolean isSuccess = false;
+            String un = username.getText().toString();
+            String pass = password.getText().toString();
+            String z = "";
+            boolean isSuccess = false;
 
-        @Override
-        protected void onPreExecute() {
-            progressDialog.setMessage("Loading...");
-            progressDialog.show();
-            super.onPreExecute();
-        }
+            @Override
+            protected void onPreExecute() {
+                progressDialog.setMessage("Loading...");
+                progressDialog.show();
+                super.onPreExecute();
+            }
 
-        @Override
-        protected String doInBackground(String... params) {
-            if (un.trim().equals("") || pass.trim().equals(""))
-                z = "Please enter all fields....";
-            else {
-                try {
-                    Connection con = connectionClass.CONN();
-                    if (con == null) {
-                        z = "Please check your internet connection";
-                    } else {
-                        String query = " select * from user where username='" + un + "'and password = '" + pass + "'";
-                        Statement stmt = con.createStatement();
-                        ResultSet rs = stmt.executeQuery(query);
-
-                        if (rs.first()) {
-                            isSuccess = true;
-                            z = "Login successfull - Mãi bên nhau bạn nhé!!";
+            @Override
+            protected String doInBackground(String... params) {
+                if (un.trim().equals("") || pass.trim().equals(""))
+                    z = "Please enter all fields....";
+                else {
+                    try {
+                        Connection con = connectionClass.CONN();
+                        if (con == null) {
+                            z = "Please check your internet connection";
                         } else {
-                            isSuccess = false;
-                            z = "Wrong password or username - Sai mật khẩu hoặc tên tài khoản rồi bạn mình ơi";
-                        }
-                    }
-                } catch (Exception ex) {
-                    isSuccess = false;
-                    z = "Exceptions" + ex;
-                }
-            }
-            return z;
-        }
-        @Override
-        protected void onPostExecute(String s) {
-            Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
-            //fix loi
+                            String query = " select * from user where username='" + un + "'and password = '" + pass + "'";
+                            Statement stmt = con.createStatement();
+                            ResultSet rs = stmt.executeQuery(query);
 
-            if (isSuccess) {
-                Intent intent = new Intent(MainActivity.this, timkiem.class);
-                startActivity(intent);
+                            if (rs.first()) {
+                                isSuccess = true;
+                                z = "Login successfull - Mãi bên nhau bạn nhé!!";
+                            } else {
+                                isSuccess = false;
+                                z = "Wrong password or username - Sai mật khẩu hoặc tên tài khoản rồi bạn mình ơi";
+                            }
+                        }
+                    } catch (Exception ex) {
+                        isSuccess = false;
+                        z = "Exceptions" + ex;
+                    }
+                }
+                return z;
             }
-            progressDialog.hide();
+            @Override
+            protected void onPostExecute(String s) {
+                Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
+                //fix loi
+
+                if (isSuccess) {
+                    Intent intent = new Intent(MainActivity.this, timkiem.class);
+                    startActivity(intent);
+                }
+                progressDialog.hide();
+            }
         }
-    }
 
 }
 

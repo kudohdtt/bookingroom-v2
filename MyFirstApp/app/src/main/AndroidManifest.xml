@@ -19,12 +19,13 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
 
-        <activity android:name=".cacloaiphong"/>
-        <activity android:name=".timkiem" />
+
+        <activity android:name=".checkin"/>
+        <activity android:name=".checkout"/>
         <activity android:name=".dangki" />
         <activity android:name=".Main3Activity" />
         <activity android:name=".Main2Activity" />
-        <activity android:name=".GoogleMapAPI">
+        <activity android:name=".timkiem">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

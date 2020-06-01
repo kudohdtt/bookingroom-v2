@@ -5,15 +5,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 public class timkiem extends AppCompatActivity {
 
-     private ImageButton checkin;
-     private ImageButton checkout;
-     private TextView checkindate;
-     private TextView checkoutdate;
+     private EditText checkindate;
+     private EditText checkoutdate;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -21,12 +20,10 @@ public class timkiem extends AppCompatActivity {
         setContentView(R.layout.activity_timkiem);
         getSupportActionBar().hide();
 
-        checkin = findViewById(R.id.imageButtonCI);
-        checkout = findViewById(R.id.imageButtonCO);
         checkindate = findViewById(R.id.txtCIdate);
         checkoutdate = findViewById(R.id.txtCOdate);
 
-        checkin.setOnClickListener(new View.OnClickListener() {
+        checkindate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(timkiem.this, checkin.class);
@@ -34,7 +31,7 @@ public class timkiem extends AppCompatActivity {
             }
         });
 
-        checkout.setOnClickListener(new View.OnClickListener() {
+        checkoutdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(timkiem.this, checkout.class);
@@ -44,7 +41,9 @@ public class timkiem extends AppCompatActivity {
 
         Intent intent = getIntent();
         String CIdate = intent.getStringExtra("checkindate");
-        checkindate.setText(CIdate);
+        if(!CIdate.equals("")){
+            checkindate.setText(CIdate);
+        }
         String COdate = intent.getStringExtra("checkoutdate");
         checkoutdate.setText(COdate);
 

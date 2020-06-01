@@ -11,32 +11,13 @@
     <FrameLayout
         android:id="@+id/frameLayoutCheckin"
         android:layout_width="412dp"
-        android:layout_height="505dp"
-        android:layout_marginTop="75dp"
+        android:layout_height="555dp"
+        android:layout_marginTop="80dp"
         android:foreground="#CAFFA726"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </FrameLayout>
-
-    <TextView
-        android:id="@+id/txtCIdate"
-        android:textColor="@color/black"
-        android:gravity="center_vertical"
-        android:layout_width="120dp"
-        android:layout_height="35dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:background="@drawable/botronedittext"
-        android:linksClickable="false"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCheckin"
-        app:srcCompat="@drawable/ic_calendar2_foreground"
-        app:layout_constraintHorizontal_bias="0.48"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        tools:targetApi="p"/>
-
+        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
 
     <TextView
         android:id="@+id/textViewChild"
@@ -50,7 +31,7 @@
         android:textSize="18sp"
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toStartOf="@+id/editChild"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonCO" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCOdate" />
 
     <TextView
         android:id="@+id/logo"
@@ -86,7 +67,7 @@
         android:layout_height="40dp"
         android:layout_marginStart="150dp"
         android:layout_marginEnd="150dp"
-        android:layout_marginBottom="93dp"
+        android:layout_marginBottom="130dp"
         android:background="@drawable/bobutton"
         android:fontFamily="sans-serif-condensed-medium"
         android:gravity="center"
@@ -120,7 +101,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="60dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="29dp"
         android:fontFamily="serif"
         android:text="@string/check_in"
         android:textAllCaps="false"
@@ -134,7 +115,7 @@
         android:id="@+id/textViewCheckout"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
+        android:layout_marginTop="29dp"
         android:layout_marginEnd="90dp"
         android:fontFamily="serif"
         android:text="@string/check_out"
@@ -158,28 +139,25 @@
         android:textStyle="bold|italic"
         app:layout_constraintEnd_toStartOf="@+id/editAdult"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonCI" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCIdate" />
 
     <EditText
         android:id="@+id/edtCity"
         android:layout_width="290dp"
         android:layout_height="35dp"
-        android:layout_marginStart="60dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="60dp"
+        android:layout_marginTop="75dp"
         android:autofillHints=""
         android:background="@drawable/botronedittext"
         android:backgroundTint="@null"
         android:inputType="text"
         android:padding="5dp"
+
         android:singleLine="true"
         android:textAlignment="textStart"
-
         android:textColor="#330000"
-        app:layout_constraintEnd_toStartOf="@+id/frameLayoutCheckin"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cityhotel" />
+        app:layout_constraintTop_toBottomOf="@+id/hotelsearch" />
 
     <EditText
         android:id="@+id/editAdult"
@@ -196,7 +174,7 @@
         android:textAlignment="textStart"
         android:textColor="#330000"
         app:layout_constraintStart_toEndOf="@+id/textViewAdult"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonCI" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCIdate" />
 
     <EditText
         android:id="@+id/editChild"
@@ -213,7 +191,7 @@
         android:textAlignment="textStart"
         android:textColor="#330000"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageButtonCO" />
+        app:layout_constraintTop_toBottomOf="@+id/txtCOdate" />
 
     <ImageView
         android:id="@+id/location"
@@ -309,22 +287,66 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <TextView
-        android:id="@+id/txtCOdate"
-        android:textColor="@color/black"
-        android:gravity="center_vertical"
+    <EditText
+        android:id="@+id/txtCIdate"
+        android:focusable="false"
         android:layout_width="120dp"
         android:layout_height="35dp"
-        android:linksClickable="false"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="8dp"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:gravity="center"
+        android:background="@drawable/botronedittext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCheckin" />
+
+    <EditText
+        android:id="@+id/txtCOdate"
+        android:focusable="false"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
         android:layout_marginTop="8dp"
         android:layout_marginEnd="56dp"
+        android:textSize="18dp"
+        android:textColor="@color/black"
+        android:gravity="center"
         android:background="@drawable/botronedittext"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textViewCheckout"
-        app:srcCompat="@drawable/ic_calendar2_foreground"
-        app:layout_constraintHorizontal_bias="0.48"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        tools:targetApi="p"/>
+        app:layout_constraintTop_toBottomOf="@+id/textViewCheckout" />
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="65dp"
+        app:layout_constraintEnd_toStartOf="@+id/txtCOdate"
+        app:layout_constraintTop_toBottomOf="@+id/edtCity"
+        app:srcCompat="@drawable/ic_calendar2_foreground" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="36dp"
+        android:layout_marginEnd="61dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/edtCity"
+        app:srcCompat="@drawable/ic_calendar2_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonMap"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="4dp"
+        android:layout_marginTop="68dp"
+        android:layout_marginEnd="7dp"
+        android:background="@null"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/edtCity"
+        app:layout_constraintTop_toBottomOf="@+id/hotelsearch"
+        app:srcCompat="@drawable/ic_locationfocus_foreground" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
