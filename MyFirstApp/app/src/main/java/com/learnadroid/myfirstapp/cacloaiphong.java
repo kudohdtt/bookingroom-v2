@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -105,6 +106,12 @@ public class cacloaiphong extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
+
+        Intent intent = getIntent();
+        int hotelId = intent.getIntExtra("hotelId", -1);
+        Toast.makeText(getApplicationContext(), "" + hotelId, Toast.LENGTH_LONG).show();
+
+
 
             Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
             listViewLoaiphong.setAdapter(adapter);
