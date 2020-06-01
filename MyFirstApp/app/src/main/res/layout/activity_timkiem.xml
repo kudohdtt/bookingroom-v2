@@ -17,7 +17,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"></FrameLayout>
+        app:layout_constraintTop_toTopOf="parent"/>
 
     <TextView
         android:id="@+id/textViewChild"
@@ -151,7 +151,7 @@
         android:backgroundTint="@null"
         android:inputType="text"
         android:padding="5dp"
-
+        android:hint="Tên khách sạn hoặc thành phố..."
         android:singleLine="true"
         android:textAlignment="textStart"
         android:textColor="#330000"
@@ -161,6 +161,7 @@
 
     <EditText
         android:id="@+id/editAdult"
+        android:hint="0"
         android:layout_width="45dp"
         android:layout_height="35dp"
         android:layout_marginStart="14dp"
@@ -178,6 +179,7 @@
 
     <EditText
         android:id="@+id/editChild"
+        android:hint="0"
         android:layout_width="45dp"
         android:layout_height="35dp"
         android:layout_marginTop="35dp"
@@ -336,7 +338,7 @@
         app:srcCompat="@drawable/ic_calendar2_foreground" />
 
     <ImageButton
-        android:id="@+id/imageButtonMap"
+        android:id="@+id/ggmap"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="4dp"

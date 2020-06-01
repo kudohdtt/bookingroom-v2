@@ -23,9 +23,16 @@ public class checkin extends AppCompatActivity {
         cf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                Intent intent1 = getIntent();
+                String COdate = intent1.getStringExtra("checkoutdate");
+                String hotel = intent1.getStringExtra("hotel");
+
                 String date = datePicker.getDayOfMonth() + "/" + datePicker.getMonth();
                 Intent intent = new Intent(checkin.this, timkiem.class);
                 intent.putExtra("checkindate",date);
+                intent.putExtra("checkoutdate",COdate);
+                intent.putExtra("hotel",hotel);
                 startActivity(intent);
             }
         });
