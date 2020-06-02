@@ -43,6 +43,10 @@ public class cacloaiphong extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         adapter = new LoaiPhongAdapter(this, R.layout.mau_loai_phong, arrayloaiphong);
+
+        Intent intent = getIntent();
+        int hotelId = intent.getIntExtra("hotelId", -1);
+        Toast.makeText(getApplicationContext(), "" + hotelId, Toast.LENGTH_LONG).show();
         Anhxa ax = new Anhxa();
         ax.execute();
         listViewLoaiphong.setOnItemClickListener(new AdapterView.OnItemClickListener(){
@@ -107,9 +111,9 @@ public class cacloaiphong extends AppCompatActivity {
         @Override
         protected void onPostExecute(String s) {
 
-        Intent intent = getIntent();
-        int hotelId = intent.getIntExtra("hotelId", -1);
-        Toast.makeText(getApplicationContext(), "" + hotelId, Toast.LENGTH_LONG).show();
+            Intent intent = getIntent();
+            int hotelId = intent.getIntExtra("hotelId", -1);
+            Toast.makeText(getApplicationContext(), "" + hotelId, Toast.LENGTH_LONG).show();
 
 
 

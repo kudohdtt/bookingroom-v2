@@ -349,6 +349,48 @@
         app:layout_constraintStart_toEndOf="@+id/edtCity"
         app:layout_constraintTop_toBottomOf="@+id/hotelsearch"
         app:srcCompat="@drawable/ic_locationfocus_foreground" />
+    <TextView
+        android:id="@+id/ERcity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/textViewCheckout"
+        app:layout_constraintEnd_toEndOf="@+id/edtCity"
+        app:layout_constraintStart_toStartOf="@+id/edtCity"
+        app:layout_constraintTop_toBottomOf="@+id/edtCity" />
+
+    <TextView
+        android:id="@+id/ERcheckin"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/editAdult"
+        app:layout_constraintEnd_toEndOf="@+id/txtCIdate"
+        app:layout_constraintStart_toStartOf="@+id/txtCIdate"
+        app:layout_constraintTop_toBottomOf="@+id/txtCIdate" />
+
+    <TextView
+        android:id="@+id/ERcheckout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintBottom_toTopOf="@+id/editChild"
+        app:layout_constraintEnd_toEndOf="@+id/txtCOdate"
+        app:layout_constraintStart_toStartOf="@+id/txtCOdate"
+        app:layout_constraintTop_toBottomOf="@+id/txtCOdate" />
+
+    <TextView
+        android:id="@+id/ERadults"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/editAdult"
+        app:layout_constraintStart_toStartOf="@+id/editAdult"
+        app:layout_constraintTop_toBottomOf="@+id/editAdult" />
+
+    <TextView
+        android:id="@+id/ERchildrent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="@+id/editChild"
+        app:layout_constraintStart_toStartOf="@+id/editChild"
+        app:layout_constraintTop_toBottomOf="@+id/editChild" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
