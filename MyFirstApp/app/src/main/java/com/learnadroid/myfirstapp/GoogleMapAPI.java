@@ -132,7 +132,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick (Marker marker){
-                Intent intent = new Intent(GoogleMapAPI.this, cacloaiphong.class);
+                Intent intent = new Intent(GoogleMapAPI.this, timphong.class);
 
                 intent.putExtra("hotelId", (int) marker.getTag());
                 startActivity(intent);

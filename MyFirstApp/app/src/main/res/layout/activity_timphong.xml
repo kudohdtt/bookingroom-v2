@@ -1,0 +1,286 @@
+<?xml version="1.0" encoding="utf-8"?><!DOCTYPE androidx.constraintlayout.widget.ConstraintLayout>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:backgroundTint="#EF5350"
+    tools:context=".timphong">
+
+
+    <FrameLayout
+        android:id="@+id/frameLayoutCheckin2"
+        android:layout_width="412dp"
+        android:layout_height="530dp"
+        android:layout_marginTop="55dp"
+        android:foreground="#CAFFA726"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </FrameLayout>
+
+    <TextView
+        android:id="@+id/textView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="330dp"
+        android:text="Yêu cầu đặt phòng"
+        android:textColor="#592A06"
+        android:textSize="30sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="@+id/textViewDaDatCI"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewChild2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="10dp"
+        android:fontFamily="serif"
+        android:text="@string/children"
+        android:textColor="#592A06"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toStartOf="@+id/editChild2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCO2" />
+
+
+    <Button
+        android:id="@+id/buttonSearch2"
+        android:layout_width="250dp"
+        android:layout_height="40dp"
+        android:layout_marginStart="150dp"
+        android:layout_marginEnd="150dp"
+        android:layout_marginBottom="93dp"
+        android:background="@drawable/bobutton"
+        android:fontFamily="sans-serif-condensed-medium"
+        android:gravity="center"
+        android:linksClickable="false"
+        android:text="@string/search"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFFFFF"
+        android:textStyle="bold|italic"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.48"
+        app:layout_constraintStart_toStartOf="parent"
+        tools:targetApi="p" />
+
+    <TextView
+        android:id="@+id/textViewCheckin2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="30dp"
+        android:fontFamily="serif"
+        android:text="@string/check_in"
+        android:textAllCaps="false"
+        android:textColor="#592A06"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textViewCheckout2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="90dp"
+        android:fontFamily="serif"
+        android:text="@string/check_out"
+        android:textColor="#592A06"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+    <TextView
+        android:id="@+id/textViewAdult2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="60dp"
+        android:layout_marginTop="40dp"
+        android:layout_marginEnd="14dp"
+        android:fontFamily="serif"
+        android:text="@string/adults"
+        android:textColor="#592A06"
+        android:textSize="18sp"
+        android:textStyle="bold|italic"
+        app:layout_constraintEnd_toStartOf="@+id/editAdult2"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCI2" />
+
+    <EditText
+        android:id="@+id/editAdult2"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="14dp"
+        android:layout_marginTop="35dp"
+        android:background="@drawable/botronedittext"
+        android:backgroundTint="@null"
+        android:importantForAutofill="no"
+        android:inputType="number"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textAlignment="textStart"
+        android:textColor="#330000"
+        app:layout_constraintStart_toEndOf="@+id/textViewAdult2"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCI2" />
+
+    <EditText
+        android:id="@+id/editChild2"
+        android:layout_width="45dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="35dp"
+        android:layout_marginEnd="60dp"
+        android:autofillHints=""
+        android:background="@drawable/botronedittext"
+        android:backgroundTint="@null"
+        android:inputType="number"
+        android:padding="5dp"
+        android:singleLine="true"
+        android:textAlignment="textStart"
+        android:textColor="#330000"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCO2" />
+
+    <ImageButton
+        android:id="@+id/imageButtonFindRoom2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginBottom="14dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/ic_findroom4_foreground"
+        android:contentDescription="TODO" />
+
+    <ImageButton
+        android:id="@+id/imageButtonOrder2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginStart="99dp"
+        android:layout_marginEnd="99dp"
+        android:layout_marginBottom="19dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/imageButtonAccount2"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonFindRoom2"
+        app:srcCompat="@drawable/ic_order_foreground" />
+
+    <ImageButton
+        android:id="@+id/imageButtonAccount2"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginEnd="40dp"
+        android:layout_marginBottom="14dp"
+        android:background="@null"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_profile_foreground" />
+
+    <TextView
+        android:id="@+id/textViewFindRoomCO2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="43dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/t_m_ki_m"
+        android:textAlignment="center"
+        android:textColor="#1BA3F3"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewDaDatCI"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
+        android:text="@string/t"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/textViewAccountCI2"
+        app:layout_constraintStart_toEndOf="@+id/textViewFindRoomCO2" />
+
+    <TextView
+        android:id="@+id/textViewAccountCI2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="38dp"
+        android:layout_marginBottom="2dp"
+        android:text="@string/t_i_kho_n"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent" />
+
+    <TextView
+        android:id="@+id/textViewCI2"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:layout_marginStart="56dp"
+        android:layout_marginTop="8dp"
+
+        android:background="@drawable/botronedittext"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCheckin2" />
+
+    <TextView
+        android:id="@+id/textViewCO2"
+        android:layout_width="120dp"
+        android:layout_height="35dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="56dp"
+        android:background="@drawable/botronedittext"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textViewCheckout2" />
+
+    <ImageView
+        android:id="@+id/imageView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="60dp"
+        app:layout_constraintEnd_toStartOf="@+id/textViewCO2"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/ic_calendar2_foreground" />
+
+    <ImageView
+        android:id="@+id/imageView21"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="37dp"
+        android:layout_marginEnd="61dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView"
+        app:srcCompat="@drawable/ic_calendar2_foreground" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:text="Royal Hotel"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textColor="#FFA726"
+        android:textSize="30sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="430dp"
+        android:layout_height="142dp"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView2"
+        app:srcCompat="@drawable/royallhotel" />
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

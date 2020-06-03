@@ -2,18 +2,16 @@ package com.learnadroid.myfirstapp;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
+
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.lang.reflect.Field;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -43,17 +41,27 @@ public class cacloaiphong extends AppCompatActivity {
         progressDialog = new ProgressDialog(this);
 
         adapter = new LoaiPhongAdapter(this, R.layout.mau_loai_phong, arrayloaiphong);
+        //lấy thông tin id_hotel và thời gian checkin checkout
+        Intent intent1 = getIntent();
+        final int hotelId = intent1.getIntExtra("hotelId", -1);
+        final String checkindate = intent1.getStringExtra("checkindate");
+        final String checkoutdate = intent1.getStringExtra("checkoutdate");
 
-        Intent intent = getIntent();
-        int hotelId = intent.getIntExtra("hotelId", -1);
-        Toast.makeText(getApplicationContext(), "" + hotelId, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "hotel ID: " + hotelId, Toast.LENGTH_LONG).show();
+
         Anhxa ax = new Anhxa();
         ax.execute();
+
         listViewLoaiphong.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LoaiPhong tr = arrayloaiphong.get(position);
-                Toast.makeText(cacloaiphong.this,"" +position,Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(cacloaiphong.this, Xacnhan.class);
+                intent.putExtra("rommtypeId",Integer.toString(tr.getId()));
+                intent.putExtra("hotelId",hotelId);
+                intent.putExtra("checkindate",checkindate);
+                intent.putExtra("checkindate",checkoutdate);
+                startActivity(intent);
             }
         });
 
@@ -78,12 +86,13 @@ public class cacloaiphong extends AppCompatActivity {
                 } else {
 
                     //lay id
-                    String query= "SELECT * FROM roomtype ";
+                    String query= "SELECT * FROM roomtype";
 
                     try {
                         Statement stmt = con.createStatement();
                         ResultSet rs = stmt.executeQuery(query);
                         while (rs.next()) {
+                            int id = rs.getInt(1);
                             String name = rs.getString(2);
                             float price = rs.getFloat(3);
                             float sale = rs.getFloat(4);
@@ -93,7 +102,7 @@ public class cacloaiphong extends AppCompatActivity {
                             float pricesale = price - sale*price;
                             String image = rs.getString(8);
                             int id_image = getResources().getIdentifier(image,"drawable",getPackageName());
-                            typeRoom = new LoaiPhong(name,bedType,"Diện tích : "+acreage+" m2",description,"Giá: "+price+"đ","Khuyến mại "+sale*100+"% : "+pricesale+"đ", id_image);
+                            typeRoom = new LoaiPhong(id,name,bedType,"Diện tích : "+acreage+" m2",description,"Giá: "+price+"đ","Khuyến mại "+sale*100+"% : "+pricesale+"đ", id_image);
                             arrayloaiphong.add(typeRoom);
                         }
                     } catch (Exception e) {
@@ -110,13 +119,6 @@ public class cacloaiphong extends AppCompatActivity {
 
         @Override
         protected void onPostExecute(String s) {
-
-            Intent intent = getIntent();
-            int hotelId = intent.getIntExtra("hotelId", -1);
-            Toast.makeText(getApplicationContext(), "" + hotelId, Toast.LENGTH_LONG).show();
-
-
-
             Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
             listViewLoaiphong.setAdapter(adapter);
             progressDialog.hide();

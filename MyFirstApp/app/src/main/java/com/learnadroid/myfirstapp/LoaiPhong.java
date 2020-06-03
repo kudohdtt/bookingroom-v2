@@ -1,6 +1,7 @@
 package com.learnadroid.myfirstapp;
 
 public class LoaiPhong {
+    private int id;
     private String Ten;
     private String Giuong;
     private String Dientich;
@@ -10,7 +11,9 @@ public class LoaiPhong {
     private int Hinh;
 
 
-    public LoaiPhong(String ten, String giuong, String dientich, String mota, String gia, String sale, int hinh) {
+
+    public LoaiPhong(int id, String ten, String giuong, String dientich, String mota, String gia, String sale, int hinh) {
+        this.id = id;
         Ten = ten;
         Giuong = giuong;
         Dientich = dientich;
@@ -18,6 +21,14 @@ public class LoaiPhong {
         Gia = gia;
         Sale = sale;
         Hinh = hinh;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getTen() {
