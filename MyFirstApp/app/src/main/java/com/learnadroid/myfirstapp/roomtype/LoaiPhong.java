@@ -1,4 +1,4 @@
-package com.learnadroid.myfirstapp;
+package com.learnadroid.myfirstapp.roomtype;
 
 public class LoaiPhong {
     private int id;

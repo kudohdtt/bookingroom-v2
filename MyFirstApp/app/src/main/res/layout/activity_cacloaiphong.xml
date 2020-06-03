@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".cacloaiphong"
+    tools:context=".roomtype.cacloaiphong"
     android:background="#f3b329">
 
     <ListView
