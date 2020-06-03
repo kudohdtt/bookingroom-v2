@@ -132,9 +132,11 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick (Marker marker){
-                Intent intent = new Intent(GoogleMapAPI.this, timphong.class);
+                int id = (int) marker.getTag();
+                Toast.makeText(getApplicationContext(), "" + id, Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(GoogleMapAPI.this, MainActivity.class);
 
-                intent.putExtra("hotelId", (int) marker.getTag());
+                intent.putExtra("hotelId", id);
                 startActivity(intent);
             }
 
@@ -156,11 +158,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                             LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
-
-                            MarkerOptions mk;
-                            mk = new MarkerOptions().position(latLng).title("Your location");
-                            mMap.addMarker(mk);
-
+                            
                             mMap.setMyLocationEnabled(true);
                             ArrayList<Hotel> hotels = FakeDataListHotel();
                             SearchLocation(hotels);
