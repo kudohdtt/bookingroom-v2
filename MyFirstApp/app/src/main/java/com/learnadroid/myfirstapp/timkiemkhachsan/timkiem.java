@@ -1,4 +1,4 @@
-package com.learnadroid.myfirstapp;
+package com.learnadroid.myfirstapp.timkiemkhachsan;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -10,15 +10,24 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-public class timphong extends AppCompatActivity {
+import com.learnadroid.myfirstapp.ggMap.GoogleMapAPI;
+import com.learnadroid.myfirstapp.R;
 
-    private Button search;
+
+public class timkiem extends AppCompatActivity {
+
     private EditText checkindate;
     private EditText checkoutdate;
+    private ImageButton ggmap;
+    private EditText hotel;
+    private Button search;
 
+    //loi
+    private TextView ERcity;
     private TextView ERcheckin;
     private TextView ERcheckout;
     private TextView ERadults;
@@ -26,54 +35,52 @@ public class timphong extends AppCompatActivity {
     private EditText editAdult;
     private EditText editChildrent;
 
+    private String txt1;
     private String txt2;
     private String txt3;
     private String txt4;
-    private String CIdate;
-    private String COdate;
 
+    //bien validate
+    private Boolean isValidCity = false;
     private Boolean isValidCIdate = false;
     private Boolean isValidCodate = false;
     private Boolean isValidAdults = false;
     private Boolean isValidChildrent = false;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timphong);
+        setContentView(R.layout.activity_timkiem);
         getSupportActionBar().hide();
 
         checkindate = findViewById(R.id.txtCIdate);
         checkoutdate = findViewById(R.id.txtCOdate);
-        search = findViewById(R.id.buttonSearch2);
+        hotel = findViewById(R.id.edtCity);
         editAdult = findViewById(R.id.editAdult);
         editChildrent = findViewById(R.id.editChild);
         search = findViewById(R.id.buttonSearch);
 
+        ERcity = findViewById(R.id.ERcity);
         ERadults = findViewById(R.id.ERadults);
         ERchildrent = findViewById(R.id.ERchildrent);
         ERcheckin = findViewById(R.id.ERcheckin);
         ERcheckout = findViewById(R.id.ERcheckout);
 
+        txt1 = hotel.getText().toString();
         txt2 = checkindate.getText().toString();
         txt3 = checkoutdate.getText().toString();
         txt4 = editAdult.getText().toString();
-        //lấy id_hotel mà API gg map và lịch trả về
-        Intent intent1 = getIntent();
-        final String hotelId = intent1.getStringExtra("hotel");
-        //lấy thời gian checkin checkout mà lịch trả về
-        CIdate = intent1.getStringExtra("checkindate");
-        checkindate.setText(CIdate);
 
-        COdate = intent1.getStringExtra("checkoutdate");
-        checkoutdate.setText(COdate);
-        //xử lý sự kiện
+        ggmap = findViewById(R.id.ggmap);
+
         checkindate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(timphong.this, checkin.class);
+                Intent intent = new Intent(timkiem.this, checkin.class);
                 intent.putExtra("checkoutdate",checkoutdate.getText().toString());
-                intent.putExtra("hotel",hotelId);
+                intent.putExtra("hotel",hotel.getText().toString());
                 startActivity(intent);
             }
         });
@@ -81,27 +88,44 @@ public class timphong extends AppCompatActivity {
         checkoutdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(timphong.this, checkout.class);
+                Intent intent = new Intent(timkiem.this, checkout.class);
                 intent.putExtra("checkindate",checkindate.getText().toString());
-                intent.putExtra("hotel",hotelId);
+                intent.putExtra("hotel",hotel.getText().toString());
                 startActivity(intent);
             }
         });
 
+        ggmap.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(timkiem.this, GoogleMapAPI.class);
+                startActivity(intent);
+            }
+        });
+
+        Intent intent = getIntent();
+        String CIdate = intent.getStringExtra("checkindate");
+        checkindate.setText(CIdate);
+
+        String COdate = intent.getStringExtra("checkoutdate");
+        checkoutdate.setText(COdate);
+
+        String hotelname = intent.getStringExtra("hotel");
+        hotel.setText(hotelname);
+
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(!isValidCIdate && !isValidCodate && !isValidAdults && !isValidChildrent && txt2.trim().equals("") && txt3.trim().equals("") && txt4.trim().equals("")){
+
+                if(!isValidCity && !isValidCIdate && !isValidCodate && !isValidAdults && !isValidChildrent && txt1.trim().equals("") && txt2.trim().equals("") && txt3.trim().equals("") && txt4.trim().equals("")){
                     Toast.makeText(getBaseContext(), "Please check all field again !", Toast.LENGTH_LONG).show();
                 }else {
-                    Intent intent = new Intent(timphong.this, cacloaiphong.class);
-                    intent.putExtra("holtelId",hotelId);
-                    intent.putExtra("checkindate",CIdate);
-                    intent.putExtra("checkoutdate",COdate);
-                    startActivity(intent);
+                    Toast.makeText(getBaseContext(), "oke", Toast.LENGTH_LONG).show();
                 }
+
             }
         });
+
 
         editAdult.addTextChangedListener(new TextWatcher() {
             @Override
@@ -151,7 +175,9 @@ public class timphong extends AppCompatActivity {
 
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
+
     }
 }

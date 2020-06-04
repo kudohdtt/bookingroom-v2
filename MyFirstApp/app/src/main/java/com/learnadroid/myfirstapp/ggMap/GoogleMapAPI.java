@@ -1,8 +1,9 @@
 
-package com.learnadroid.myfirstapp;
+package com.learnadroid.myfirstapp.ggMap;
 
 import android.Manifest;
 import android.app.AlertDialog;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -11,6 +12,8 @@ import android.location.Geocoder;
 import android.location.Location;
 import android.os.Bundle;
 import android.view.Gravity;
+import android.view.View;
+import android.widget.Button;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -30,7 +33,11 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.learnadroid.myfirstapp.R;
 import com.learnadroid.myfirstapp.actor.Hotel;
+import com.learnadroid.myfirstapp.databse.ConnectionClass;
+import com.learnadroid.myfirstapp.timkiemkhachsan.timkiem;
+import com.learnadroid.myfirstapp.timphong.timphong;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,6 +46,9 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
 
     private GoogleMap mMap;
     private SearchView searchView;
+    private Button back;
+    ProgressDialog progressDialog;
+    ConnectionClass connectionClass;
 
     private Location currentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -51,7 +61,19 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        back = findViewById(R.id.btn_back);
         searchView = (SearchView) findViewById(R.id.search_place);
+        connectionClass = new ConnectionClass();
+        progressDialog = new ProgressDialog(this);
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(GoogleMapAPI.this, timkiem.class);
+                startActivity(intent);
+            }
+        });
+
 
         searchView.setOnQueryTextListener(new SearchView.OnQueryTextListener() {
             @Override
@@ -75,7 +97,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                             toast.show();
                         }
                     } catch (Exception e) {
-                        Toast toast = Toast.makeText(getApplicationContext(), "This address could not be found", Toast.LENGTH_LONG);
+                        Toast toast = Toast.makeText(getApplicationContext(), "Enter field " + e.getMessage(), Toast.LENGTH_LONG);
                         toast.setGravity(Gravity.CENTER, 0, 0);
                         toast.show();
                         e.printStackTrace();
@@ -103,9 +125,9 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    private void SearchLocation(ArrayList<Hotel> hotelList) {
-        Toast.makeText(getApplicationContext(), "SearchLocation", Toast.LENGTH_LONG).show();
-
+    private void addHotel(ArrayList<Hotel> hotelList,final GoogleMap googleMap) {
+        Toast.makeText(getApplicationContext(), "AddHotelLocation", Toast.LENGTH_LONG).show();
+        mMap = googleMap;
         for (int i = 0; i < hotelList.size(); i++) {
             String location = hotelList.get(i).getLocation();
             if (location != null && !location.equals("")) {
@@ -115,7 +137,6 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                     addressList = geocoder.getFromLocationName(location, 1);
                     if (addressList != null) {
                         Address address = addressList.get(0);
-
                         LatLng latLng = new LatLng(address.getLatitude(), address.getLongitude());
                         Marker marker;
                         marker = mMap.addMarker(new MarkerOptions().position(latLng).title(hotelList.get(i).getName()));
@@ -132,9 +153,11 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick (Marker marker){
+                int id = (int) marker.getTag();
+                Toast.makeText(getApplicationContext(), "" + id, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(GoogleMapAPI.this, timphong.class);
-
-                intent.putExtra("hotelId", (int) marker.getTag());
+                final String hotelId = Integer.toString(id);
+                intent.putExtra("hotelId",hotelId);
                 startActivity(intent);
             }
 
@@ -156,14 +179,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                             LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
-
-                            MarkerOptions mk;
-                            mk = new MarkerOptions().position(latLng).title("Your location");
-                            mMap.addMarker(mk);
-
                             mMap.setMyLocationEnabled(true);
-                            ArrayList<Hotel> hotels = FakeDataListHotel();
-                            SearchLocation(hotels);
                         }
                     }
                 });
@@ -209,15 +225,17 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
             //                                          int[] grantResults)
             // to handle the case where the user grants the permission. See the documentation
             // for ActivityCompat#requestPermissions for more details.
-
             RequestPermision();
-
             return;
         }
 
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
+        progressDialog.setMessage("Loading...");
+        progressDialog.show();
+        ArrayList<Hotel> hotels = FakeDataListHotel();
+        addHotel(hotels,googleMap);
         fetchLastLocation(googleMap);
-
+        progressDialog.hide();
 
     }
 

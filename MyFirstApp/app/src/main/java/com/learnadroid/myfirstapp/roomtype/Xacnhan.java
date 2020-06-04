@@ -1,4 +1,4 @@
-package com.learnadroid.myfirstapp;
+package com.learnadroid.myfirstapp.roomtype;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -9,6 +9,10 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
+
+import com.learnadroid.myfirstapp.R;
+import com.learnadroid.myfirstapp.dangki.Main2Activity;
+import com.learnadroid.myfirstapp.databse.ConnectionClass;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
