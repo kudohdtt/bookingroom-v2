@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#EFECEC"
+    >
+
+    <Button
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@id/Back"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="20dp"
+        android:background="@drawable/back_button"
+        android:id="@+id/btn_back"
+        />
+    <RelativeLayout
+        android:id="@+id/Back"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginBottom="25dp"
+        android:background="@color/ic_pw_background"
+        >
+
+        <Button
+            android:id="@+id/bt_BoLoc"
+            android:layout_width="108dp"
+            android:layout_height="40dp"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="32dp"
+            android:layout_marginBottom="9dp"
+            android:background="@drawable/bg_button_signin"
+            android:text="Bo Loc"
+            android:textAllCaps="false"
+            android:textColor="#fff" />
+
+        <Button
+            android:id="@+id/bt_Sapxep"
+            android:layout_width="108dp"
+            android:layout_height="40dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginStart="22dp"
+            android:layout_marginLeft="22dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="10dp"
+            android:background="@drawable/bg_button_signin"
+            android:text="Sapxep"
+            android:textAllCaps="false"
+            android:textColor="#fff" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/listView"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginBottom="16dp"
+        android:background="@color/ic_pw_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/Back" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
