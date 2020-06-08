@@ -9,6 +9,7 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.widget.SearchView;
@@ -32,6 +33,9 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.learnadroid.myfirstapp.actor.Hotel;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,13 +47,16 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     private Location currentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
 
-
-    String place;
+    ConnectionClass connectionClass;
+    ArrayList<Hotel> hotels;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
+
+        connectionClass = new ConnectionClass();
+        hotels = new ArrayList<Hotel>();
 
         searchView = (SearchView) findViewById(R.id.search_place);
 
@@ -158,10 +165,12 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                             LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
-                            
+
                             mMap.setMyLocationEnabled(true);
-                            ArrayList<Hotel> hotels = FakeDataListHotel();
-                            SearchLocation(hotels);
+
+                            SearchHotel searchHotel = new SearchHotel();
+                            searchHotel.execute();
+
                         }
                     }
                 });
@@ -237,4 +246,55 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+    // SearchListHotel
+    private class SearchHotel extends AsyncTask<String, String, String> {
+
+
+        String z = "";
+        boolean isSuccess = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                Connection con = connectionClass.CONN();
+                if (con == null) {
+                    z = "Please check your internet connection";
+                } else {
+                    String query = " select * from hotel";
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
+
+                    while (rs.next()){
+                        hotels.add(new Hotel(rs.getInt(1), rs.getString(2), rs.getString(3), rs.getFloat(5), null));
+                    }
+
+                    isSuccess = true;
+                    z = "Login successfull - Mãi bên nhau bạn nhé!!";
+
+                }
+            } catch (Exception ex) {
+                isSuccess = false;
+                z = "Exceptions" + ex;
+            }
+
+            return z;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
+            //fix loi
+            SearchLocation(hotels);
+
+
+        }
+    }
+
+
 }

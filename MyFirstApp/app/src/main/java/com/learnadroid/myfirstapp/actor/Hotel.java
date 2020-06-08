@@ -6,10 +6,10 @@ public class Hotel {
     private int id;
     private String name;
     private String location;
-    private int rate;
+    private float rate;
     private List<Room> roomList;
 
-    public Hotel(int id, String name, String location, int rate, List<Room> roomList) {
+    public Hotel(int id, String name, String location, float rate, List<Room> roomList) {
         this.id = id;
         this.name = name;
         this.location = location;
@@ -41,11 +41,11 @@ public class Hotel {
         this.location = location;
     }
 
-    public int getRate() {
+    public float getRate() {
         return rate;
     }
 
-    public void setRate(int rate) {
+    public void setRate(float rate) {
         this.rate = rate;
     }
 
