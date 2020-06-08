@@ -1,4 +1,4 @@
-package com.learnadroid.myfirstapp;
+package com.learnadroid.myfirstapp.roomtype;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -11,6 +11,9 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.learnadroid.myfirstapp.databse.ConnectionClass;
+import com.learnadroid.myfirstapp.R;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -43,7 +46,7 @@ public class cacloaiphong extends AppCompatActivity {
         adapter = new LoaiPhongAdapter(this, R.layout.mau_loai_phong, arrayloaiphong);
         //lấy thông tin id_hotel và thời gian checkin checkout
         Intent intent1 = getIntent();
-        final int hotelId = intent1.getIntExtra("hotelId", -1);
+        final String hotelId = intent1.getStringExtra("hotelId");
         final String checkindate = intent1.getStringExtra("checkindate");
         final String checkoutdate = intent1.getStringExtra("checkoutdate");
 

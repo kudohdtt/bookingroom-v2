@@ -1,4 +1,4 @@
-package com.learnadroid.myfirstapp;
+package com.learnadroid.myfirstapp.dangki;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,6 +16,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import com.learnadroid.myfirstapp.databse.ConnectionClass;
+import com.learnadroid.myfirstapp.R;
 
 import java.sql.Connection;
 import java.sql.ResultSet;

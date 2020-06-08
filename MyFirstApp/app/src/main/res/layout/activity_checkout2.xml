@@ -2,12 +2,12 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".timkiemkhachsan.checkin"
+    tools:context=".timphong.checkout2"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <FrameLayout
-        android:id="@+id/frameLayoutCheckin"
+        android:id="@+id/frameLayoutCheckout"
         android:layout_width="412dp"
         android:layout_height="150dp"
         android:foreground="#CAFFA726"
@@ -18,22 +18,22 @@
     </FrameLayout>
 
     <DatePicker
-        android:id="@+id/CheckInDate"
+        android:id="@+id/CheckOutDate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="110dp"
         android:background="@drawable/bogoclich"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/frameLayoutCheckin" />
+        app:layout_constraintTop_toTopOf="@+id/frameLayoutCheckout" />
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/textViewCOdate"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
-        android:text="@string/check_in_date"
+        android:text="@string/check_out_date"
         android:textSize="30sp"
         android:textStyle="bold"
         app:layout_constraintStart_toStartOf="parent"
@@ -46,33 +46,31 @@
         android:layout_marginBottom="100dp"
         android:background="@drawable/bobutton"
         android:text="@string/ok"
-        android:textColor="#FFFFFF"
+        android:textColor="#FDFDFD"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/imageButtonFindeCI"
+        android:id="@+id/imageButtonFindeCO"
         android:layout_width="60dp"
         android:layout_height="60dp"
         android:layout_marginStart="40dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginBottom="14dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:srcCompat="@drawable/ic_findroom4_foreground" />
 
     <ImageButton
-        android:id="@+id/imageButtonOrderCI"
+        android:id="@+id/imageButtonOrderCO"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:layout_marginStart="99dp"
-        android:layout_marginEnd="99dp"
         android:layout_marginBottom="19dp"
         android:background="@null"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/imageButtonAccountCI"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonFindeCI"
+        app:layout_constraintStart_toEndOf="@+id/imageButtonFindeCO"
         app:srcCompat="@drawable/ic_order_foreground" />
 
     <ImageButton
@@ -102,9 +100,6 @@
         android:id="@+id/textViewDaDatCI"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="2dp"
         android:text="@string/t"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
