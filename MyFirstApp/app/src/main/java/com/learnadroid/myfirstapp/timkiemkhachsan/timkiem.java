@@ -1,13 +1,17 @@
 package com.learnadroid.myfirstapp.timkiemkhachsan;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.FragmentController;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -16,7 +20,6 @@ import android.widget.Toast;
 
 import com.learnadroid.myfirstapp.ggMap.GoogleMapAPI;
 import com.learnadroid.myfirstapp.R;
-
 
 public class timkiem extends AppCompatActivity {
 
@@ -47,12 +50,25 @@ public class timkiem extends AppCompatActivity {
     private Boolean isValidAdults = false;
     private Boolean isValidChildrent = false;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_timkiem);
+        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
         getSupportActionBar().hide();
 
         checkindate = findViewById(R.id.txtCIdate);
@@ -120,7 +136,11 @@ public class timkiem extends AppCompatActivity {
                 if(!isValidCity && !isValidCIdate && !isValidCodate && !isValidAdults && !isValidChildrent && txt1.trim().equals("") && txt2.trim().equals("") && txt3.trim().equals("") && txt4.trim().equals("")){
                     Toast.makeText(getBaseContext(), "Please check all field again !", Toast.LENGTH_LONG).show();
                 }else {
-                    Toast.makeText(getBaseContext(), "oke", Toast.LENGTH_LONG).show();
+                    Intent intent = new Intent(timkiem.this, ketquatimkiem.class);
+                    intent.putExtra("keyword",hotel.getText().toString());
+                    intent.putExtra("checkindate",checkindate.getText().toString());
+                    intent.putExtra("checkoutdate",checkoutdate.getText().toString());
+                    startActivity(intent);
                 }
 
             }

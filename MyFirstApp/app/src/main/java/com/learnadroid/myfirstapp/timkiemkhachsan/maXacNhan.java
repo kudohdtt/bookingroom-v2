@@ -1,20 +1,21 @@
-package com.learnadroid.myfirstapp.dangki;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
+package com.learnadroid.myfirstapp.timkiemkhachsan;
 
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
+
+import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.learnadroid.myfirstapp.R;
-import com.learnadroid.myfirstapp.timkiemkhachsan.timkiem;
 
-public class Main3Activity extends AppCompatActivity {
+public class maXacNhan extends AppCompatActivity {
 
-    private Button start;
+    Button btTieptuc2;
+    Button bt1;
 
     @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
@@ -32,14 +33,21 @@ public class Main3Activity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main3);
-        getSupportActionBar().hide();
-        start = findViewById(R.id.btTieptuc);
-        start.setOnClickListener(new View.OnClickListener() {
+        setContentView(R.layout.activity_ma_xac_nhan);
+        btTieptuc2 = (Button) findViewById(R.id.btTieptuc2);
+        bt1 = (Button) findViewById(R.id.bt1);
+
+        btTieptuc2.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Main3Activity.this, timkiem.class);
-                startActivity(intent);
+                Intent mh3 = new Intent(maXacNhan.this, comfim.class);
+                startActivity(mh3);
+            }
+        });
+        bt1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(getBaseContext(),"Email has been sent",Toast.LENGTH_LONG).show();
             }
         });
     }

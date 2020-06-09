@@ -4,16 +4,20 @@ import android.app.ProgressDialog;
 import android.content.Intent;
 
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.learnadroid.myfirstapp.databse.ConnectionClass;
 import com.learnadroid.myfirstapp.R;
+import com.learnadroid.myfirstapp.timkiemkhachsan.ketquatimkiem;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -28,7 +32,24 @@ public class cacloaiphong extends AppCompatActivity {
     ProgressDialog progressDialog;
     ConnectionClass connectionClass;
     LoaiPhong typeRoom;
+    Button back;
+    private String hotelId;
+    private String checkindate;
+    private String checkoutdate;
+    private String keyword;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onResume() {
+        super.onResume();
+        View decorView = getWindow().getDecorView();
+        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
+                | View.SYSTEM_UI_FLAG_FULLSCREEN
+                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,6 +59,7 @@ public class cacloaiphong extends AppCompatActivity {
 
         listViewLoaiphong = (ListView) findViewById(R.id.listLoaiphong);
         arrayloaiphong = new ArrayList<>();
+        back = findViewById(R.id.btQuaylai1);
 
         connectionClass = new ConnectionClass();
 
@@ -46,11 +68,13 @@ public class cacloaiphong extends AppCompatActivity {
         adapter = new LoaiPhongAdapter(this, R.layout.mau_loai_phong, arrayloaiphong);
         //lấy thông tin id_hotel và thời gian checkin checkout
         Intent intent1 = getIntent();
-        final String hotelId = intent1.getStringExtra("hotelId");
-        final String checkindate = intent1.getStringExtra("checkindate");
-        final String checkoutdate = intent1.getStringExtra("checkoutdate");
+        hotelId = intent1.getStringExtra("hotelId");
+        checkindate = intent1.getStringExtra("checkindate");
+        checkoutdate = intent1.getStringExtra("checkoutdate");
+        keyword = intent1.getStringExtra("keyword");
 
-        Toast.makeText(getApplicationContext(), "hotel ID: " + hotelId, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "hotel ID: " + hotelId, Toast.LENGTH_LONG).show();
+//        Toast.makeText(getApplicationContext(), "checkindate: " + checkindate, Toast.LENGTH_LONG).show();
 
         Anhxa ax = new Anhxa();
         ax.execute();
@@ -60,10 +84,21 @@ public class cacloaiphong extends AppCompatActivity {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 LoaiPhong tr = arrayloaiphong.get(position);
                 Intent intent = new Intent(cacloaiphong.this, Xacnhan.class);
-                intent.putExtra("rommtypeId",Integer.toString(tr.getId()));
+                intent.putExtra("roomtypeId",Integer.toString(tr.getId()));
                 intent.putExtra("hotelId",hotelId);
                 intent.putExtra("checkindate",checkindate);
-                intent.putExtra("checkindate",checkoutdate);
+                intent.putExtra("checkoutdate",checkoutdate);
+                startActivity(intent);
+            }
+        });
+
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(cacloaiphong.this, ketquatimkiem.class);
+                intent.putExtra("keyword",keyword);
+                intent.putExtra("checkindate",checkindate);
+                intent.putExtra("checkoutdate",checkoutdate);
                 startActivity(intent);
             }
         });
@@ -89,7 +124,7 @@ public class cacloaiphong extends AppCompatActivity {
                 } else {
 
                     //lay id
-                    String query= "SELECT * FROM roomtype";
+                    String query= "SELECT * FROM roomtype where exists(select id_roomtype from room where id_hotel="+hotelId+")";
 
                     try {
                         Statement stmt = con.createStatement();
