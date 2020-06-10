@@ -14,7 +14,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Profile"></activity>
+        <meta-data
+            android:name="com.google.android.actions"
+            android:resource="@xml/ic_order_select" />
+
+        <activity android:name=".DsDatphong" />
+        <activity android:name=".timkiemkhachsan.comfim" />
+        <activity android:name=".timkiemkhachsan.maXacNhan" />
+        <activity android:name=".timkiemkhachsan.ketquatimkiem" />
         <activity android:name=".timphong.checkout2" />
         <activity android:name=".timphong.checkin2" />
 
@@ -30,14 +37,14 @@
         <activity android:name=".dangki.dangki" />
         <activity android:name=".dangki.Main3Activity" />
         <activity android:name=".dangki.Main2Activity" />
-        <activity android:name=".dangnhap.MainActivity" />
-        <activity android:name=".ggMap.GoogleMapAPI">
+        <activity android:name=".dangnhap.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ggMap.GoogleMapAPI" />
         <activity android:name=".timphong.timphong" />
     </application>
 
