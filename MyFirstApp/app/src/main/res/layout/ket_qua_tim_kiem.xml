@@ -3,14 +3,12 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:context=".timkiemkhachsan.ketquatimkiem"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#EFECEC"
     >
 
     <Button
-
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toTopOf="@id/Back"
@@ -31,7 +29,7 @@
         android:layout_height="60dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintBottom_toTopOf="@+id/listHotel"
+        app:layout_constraintBottom_toTopOf="@+id/listView"
         android:layout_marginStart="16dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="10dp"
@@ -71,7 +69,7 @@
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/listHotel"
+        android:id="@+id/listView"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
