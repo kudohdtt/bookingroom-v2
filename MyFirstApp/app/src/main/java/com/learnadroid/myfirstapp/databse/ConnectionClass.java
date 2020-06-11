@@ -14,9 +14,9 @@ import java.sql.SQLException;
 public class ConnectionClass {
     String classs = "com.mysql.jdbc.Driver";
 
-    String url = "jdbc:mysql://192.168.56.1/bookingroom";
-    String un = "tuantu";
-    String password = "123";
+    private String url = "jdbc:mysql://192.168.135.2/bookingroom?&autoReconnect=true&failOverReadOnly=false&maxReconnects=10";
+    private String un = "phamhung";
+    private String password = "123";
 
 
 

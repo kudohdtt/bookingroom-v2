@@ -14,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import com.learnadroid.myfirstapp.databse.ConnectionClass;
 import com.learnadroid.myfirstapp.R;
 import com.learnadroid.myfirstapp.dangki.dangki;
-import com.learnadroid.myfirstapp.timkiemkhachsan.timkiem;
+import com.learnadroid.myfirstapp.home.SearchHotel;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -62,7 +62,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
         private class Dologin extends AsyncTask<String, String, String> {
-
             String un = username.getText().toString();
             String pass = password.getText().toString();
             String z = "";
@@ -85,13 +84,37 @@ public class MainActivity extends AppCompatActivity {
                         if (con == null) {
                             z = "Please check your internet connection";
                         } else {
-                            String query = " select * from user where username='" + un + "'and password = '" + pass + "'";
+                            String queryUser = " select * from user where username='" + un + "'and password = '" + pass + "'";
                             Statement stmt = con.createStatement();
-                            ResultSet rs = stmt.executeQuery(query);
+                            ResultSet resultQueryUser = stmt.executeQuery(queryUser);
 
-                            if (rs.first()) {
+                            if (resultQueryUser.first()) {
                                 isSuccess = true;
-                                z = "Login successfull - Mãi bên nhau bạn nhé!!";
+                                //z = resultQueryUser.getInt(1) + resultQueryUser.getString(2) + resultQueryUser.getInt(3);
+                                String userName = resultQueryUser.getString(2);
+                                String passWord = resultQueryUser.getString(3);
+                                //z = "Login successfull - Mãi bên nhau bạn nhé!!";
+
+                                int idCustomer = resultQueryUser.getInt(4);
+
+                                String queryCustomer = " select * from customer where id_customer='" + idCustomer + "'";
+
+                                ResultSet resultQueryCustomer = stmt.executeQuery(queryCustomer);
+                                if (resultQueryCustomer.first()) {
+
+                                    int id = resultQueryCustomer.getInt(1);
+                                    String email = resultQueryCustomer.getString(3);
+                                    String fulName = resultQueryCustomer.getString(2);
+                                    String numberPhone = resultQueryCustomer.getString(4);
+                                    String sex = "Male";
+                                    String birthDay = "1/1/1999";
+
+                                    AccountManager.getInstance().InitAccount(id, email, fulName, numberPhone, sex, birthDay, userName, passWord);
+                                    z = resultQueryCustomer.getInt(1) + " " + resultQueryCustomer.getString(2) + " " + resultQueryCustomer.getString(3);
+                                }else {
+                                   z = "queryFail";
+                                }
+
                             } else {
                                 isSuccess = false;
                                 z = "Wrong password or username - Sai mật khẩu hoặc tên tài khoản rồi bạn mình ơi";
@@ -107,14 +130,15 @@ public class MainActivity extends AppCompatActivity {
             @Override
             protected void onPostExecute(String s) {
                 Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
-                //fix loi
+//                //fix loi
 
                 if (isSuccess) {
-                    Intent intent = new Intent(MainActivity.this, timkiem.class);
+                    Intent intent = new Intent(MainActivity.this, SearchHotel.class);
                     startActivity(intent);
                 }
                 progressDialog.hide();
             }
+
         }
 
 }

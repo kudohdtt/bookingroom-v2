@@ -14,7 +14,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".Profile"></activity>
+        <activity android:name=".home.Profile" />
         <activity android:name=".timphong.checkout2" />
         <activity android:name=".timphong.checkin2" />
 
@@ -30,8 +30,8 @@
         <activity android:name=".dangki.dangki" />
         <activity android:name=".dangki.Main3Activity" />
         <activity android:name=".dangki.Main2Activity" />
-        <activity android:name=".dangnhap.MainActivity" />
-        <activity android:name=".ggMap.GoogleMapAPI">
+        <activity android:name=".home.SearchHotel"/>
+        <activity android:name=".dangnhap.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

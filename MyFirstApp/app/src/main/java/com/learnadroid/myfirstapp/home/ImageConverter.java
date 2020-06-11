@@ -1,4 +1,4 @@
-package com.learnadroid.myfirstapp;
+package com.learnadroid.myfirstapp.home;
 
 import android.graphics.Bitmap;
 import android.graphics.Canvas;
