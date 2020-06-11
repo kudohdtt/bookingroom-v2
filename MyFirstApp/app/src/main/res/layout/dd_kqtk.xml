@@ -12,18 +12,22 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:gravity="center"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true">
 
         <TextView
             android:id="@+id/name_hotel"
-            android:layout_width="wrap_content"
-            android:layout_height="35dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_alignParentStart="true"
+            android:layout_alignParentTop="true"
             android:layout_centerVertical="true"
-            android:text="ABCD"
-            android:textSize="25dp" />
+            android:layout_marginStart="2dp"
+            android:layout_marginTop="0dp"
+            android:fontFamily="sans-serif-medium"
+            android:text="RealativeLayout"
+            android:textColor="#1693A3"
+            android:textSize="30dp" />
 
         <RatingBar
             android:id="@+id/rate_hotel"
@@ -31,6 +35,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
+            android:layout_below="@+id/name_hotel"
+            android:layout_marginTop="5dp"
             android:numStars="5"
             android:progressTint="#F1DB1E"
             android:rating="2.5" />
@@ -42,7 +48,7 @@
        android:layout_below="@+id/tieude_ks"
         android:layout_width="match_parent"
         android:layout_height="1dp"
-        android:background="@android:color/darker_gray"
+        android:background="#787777"
         android:layout_marginBottom="20dp"/>
     <RelativeLayout
         android:id="@+id/image_hotel"
@@ -97,16 +103,19 @@
         android:layout_marginEnd="5dp"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/image_hotel"
-        app:srcCompat="@drawable/ic_vitri_foreground" />
+        app:srcCompat="@drawable/ic_vitri_foreground"
+        android:tint="#045D85"/>
     <TextView
         android:id="@+id/text_location_hotel"
         android:layout_below="@+id/image_hotel"
         android:layout_toEndOf="@+id/location_hotel"
         android:layout_marginTop="15dp"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="25dp"
-        android:text="Dia diem a"/>
+        android:text="Thành phố HCM"
+        android:fontFamily="sans-serif"
+        android:textColor="@color/black"/>
     <TextView
         android:id="@+id/gt_hotel"
         android:layout_marginStart="10dp"
@@ -115,7 +124,8 @@
         android:text="Gioi thieu khach san rat là đẹp mong cac bạn xem hộ mình cái đi nhá ."
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"/>
+        android:textSize="17dp"
+        android:fontFamily="sans-serif-condensed"/>
     <TextView
         android:id="@+id/ttkm_hotel"
         android:layout_marginStart="10dp"
@@ -124,7 +134,8 @@
         android:text="Thong tin khuyen mai"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:textSize="15dp"/>
+        android:textSize="17dp"
+        android:fontFamily="sans-serif-condensed"/>
 
     <TextView
         android:id="@+id/price"
@@ -138,6 +149,7 @@
         android:textAlignment="center"
         android:paddingTop="10dp"
         android:background="@drawable/shadow_textview"
+        android:fontFamily="sans-serif-black"
         />
 
 

@@ -26,9 +26,10 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@+id/image_dv"
             android:layout_marginTop="5dp"
-            android:text="Dich vụ khách sạn"
-            android:layout_marginStart="2dp"
-            android:textSize="23dp"/>
+            android:text="Dich vụ khách sạn "
+            android:layout_marginStart="3dp"
+            android:textSize="23dp"
+            android:fontFamily="sans-serif"/>
        <RelativeLayout
            android:id="@+id/dd_chiphidv"
            android:layout_width="match_parent"
@@ -49,13 +50,15 @@
             android:layout_toEndOf="@+id/icon_dollar"
             android:paddingLeft="10dp"
             android:textSize="20dp"
-            android:text="500.000"/>
+            android:text="500.000"
+            android:fontFamily="sans-serif-black"/>
            <TextView
                android:id="@+id/dd_vnd"
                android:layout_width="wrap_content"
                android:layout_height="wrap_content"
                android:layout_toEndOf="@+id/chiphidv"
                android:textSize="20dp"
+               android:fontFamily="sans-serif-black"
                android:text="đ"
                />
        </RelativeLayout>
@@ -78,12 +81,14 @@
             android:layout_height="wrap_content"
             android:layout_toEndOf="@id/ic_location_dv"
             android:textSize="20dp"
+            android:fontFamily="sans-serif-black"
             android:text="1"/>
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_toEndOf="@id/quangduong"
                 android:textSize="20dp"
+                android:fontFamily="sans-serif-black"
                 android:text="km"/>
     </RelativeLayout>
     </RelativeLayout>
