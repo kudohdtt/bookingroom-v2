@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.DatePicker;
 
 import com.learnadroid.myfirstapp.R;
+import com.learnadroid.myfirstapp.dangnhap.AccountManager;
+import com.learnadroid.myfirstapp.home.MainActivity;
 
 public class checkin extends AppCompatActivity {
     private Button cf;
@@ -39,16 +41,9 @@ public class checkin extends AppCompatActivity {
         cf.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-                Intent intent1 = getIntent();
-                String COdate = intent1.getStringExtra("checkoutdate");
-                String hotel = intent1.getStringExtra("hotel");
-
                 String date = datePicker.getDayOfMonth() + "/" + (datePicker.getMonth()+1);
-                Intent intent = new Intent(checkin.this, timkiem.class);
-                intent.putExtra("checkindate",date);
-                intent.putExtra("checkoutdate",COdate);
-                intent.putExtra("hotel",hotel);
+                Intent intent = new Intent(checkin.this, MainActivity.class);
+                AccountManager.checkindate = date;
                 startActivity(intent);
             }
         });

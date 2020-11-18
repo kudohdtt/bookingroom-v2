@@ -1,4 +1,4 @@
-package com.learnadroid.myfirstapp.databse;
+package com.learnadroid.myfirstapp.database;
 
 import android.annotation.SuppressLint;
 import android.os.StrictMode;

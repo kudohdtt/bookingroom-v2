@@ -14,7 +14,7 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.learnadroid.myfirstapp.databse.ConnectionClass;
+import com.learnadroid.myfirstapp.database.ConnectionClass;
 import com.learnadroid.myfirstapp.R;
 import com.learnadroid.myfirstapp.dangki.dangki;
 import com.learnadroid.myfirstapp.timkiemkhachsan.timkiem;
@@ -101,13 +101,40 @@ public class MainActivity extends AppCompatActivity {
                         if (con == null) {
                             z = "Please check your internet connection";
                         } else {
-                            String query = " select * from user where username='" + un + "'and password = '" + pass + "'";
+                            String queryUser = " select * from user where username='" + un + "'and password = '" + pass + "'";
                             Statement stmt = con.createStatement();
-                            ResultSet rs = stmt.executeQuery(query);
+                            ResultSet resultQueryUser = stmt.executeQuery(queryUser);
 
-                            if (rs.first()) {
+                            if (resultQueryUser.first()) {
                                 isSuccess = true;
-                                z = "Login successfull - Mãi bên nhau bạn nhé!!";
+                                //z = resultQueryUser.getInt(1) + resultQueryUser.getString(2) + resultQueryUser.getInt(3);
+                                String userName = resultQueryUser.getString(2);
+                                String passWord = resultQueryUser.getString(3);
+                                //z = "Login successfull - Mãi bên nhau bạn nhé!!";
+
+                                int idCustomer = resultQueryUser.getInt(4);
+                                AccountManager.customerId = idCustomer;
+                                AccountManager.userId = idCustomer;
+
+                                String queryCustomer = " select * from customer where id_customer='" + idCustomer + "'";
+
+                                ResultSet resultQueryCustomer = stmt.executeQuery(queryCustomer);
+                                if (resultQueryCustomer.first()) {
+
+                                    int id = resultQueryCustomer.getInt(1);
+                                    String email = resultQueryCustomer.getString(3);
+                                    AccountManager.gmail = email;
+                                    String fulName = resultQueryCustomer.getString(2);
+                                    String numberPhone = resultQueryCustomer.getString(4);
+                                    String sex = "Male";
+                                    String birthDay = "1/1/1999";
+
+                                    AccountManager.getInstance().InitAccount(id, email, fulName, numberPhone, sex, birthDay, userName, passWord);
+                                    z = resultQueryCustomer.getInt(1) + " " + resultQueryCustomer.getString(2) + " " + resultQueryCustomer.getString(3);
+                                }else {
+                                    z = "queryFail";
+                                }
+
                             } else {
                                 isSuccess = false;
                                 z = "Wrong password or username - Sai mật khẩu hoặc tên tài khoản rồi bạn mình ơi";
@@ -126,7 +153,7 @@ public class MainActivity extends AppCompatActivity {
                 //fix loi
 
                 if (isSuccess) {
-                    Intent intent = new Intent(MainActivity.this, timkiem.class);
+                    Intent intent = new Intent(MainActivity.this, com.learnadroid.myfirstapp.home.MainActivity.class);
                     startActivity(intent);
                 }
                 progressDialog.hide();

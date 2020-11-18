@@ -1,26 +1,33 @@
-package com.learnadroid.myfirstapp.timkiemkhachsan;
-
-import androidx.annotation.RequiresApi;
-import androidx.appcompat.app.AppCompatActivity;
+package com.learnadroid.myfirstapp.home;
 
 import android.content.Intent;
 import android.graphics.Color;
-import android.os.Build;
 import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
-import android.view.WindowManager;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.learnadroid.myfirstapp.ggMap.GoogleMapAPI;
 import com.learnadroid.myfirstapp.R;
+import com.learnadroid.myfirstapp.dangnhap.AccountManager;
+import com.learnadroid.myfirstapp.ggMap.GoogleMapAPI;
+import com.learnadroid.myfirstapp.timkiemkhachsan.checkin;
+import com.learnadroid.myfirstapp.timkiemkhachsan.checkout;
+import com.learnadroid.myfirstapp.timkiemkhachsan.hotelResult;
 
-public class timkiem extends AppCompatActivity {
+import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
+import androidx.fragment.app.Fragment;
+
+public class SearchHotel extends Fragment {
 
     private EditText checkindate;
     private EditText checkoutdate;
@@ -36,12 +43,7 @@ public class timkiem extends AppCompatActivity {
     private TextView ERchildrent;
     private EditText editAdult;
     private EditText editChildrent;
-    //private ImageButton profile;
 
-    private String txt1;
-    private String txt2;
-    private String txt3;
-    private String txt4;
 
     //bien validate
     private Boolean isValidCity = false;
@@ -50,62 +52,48 @@ public class timkiem extends AppCompatActivity {
     private Boolean isValidAdults = false;
     private Boolean isValidChildrent = false;
 
-    @RequiresApi(api = Build.VERSION_CODES.M)
+
     @Override
-    protected void onResume() {
-        super.onResume();
-        View decorView = getWindow().getDecorView();
-        decorView.setSystemUiVisibility(View.SYSTEM_UI_FLAG_LAYOUT_STABLE
-                | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_LAYOUT_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION
-                | View.SYSTEM_UI_FLAG_FULLSCREEN
-                | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY);
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
     }
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_timkiem);
-        this.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN,WindowManager.LayoutParams.FLAG_FULLSCREEN);
-        getSupportActionBar().hide();
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+                             Bundle savedInstanceState) {
+        // Inflate the layout for this fragment
+        setHasOptionsMenu(true);
+        return inflater.inflate(R.layout.activity_timkiem, container, false);
+    }
 
-        checkindate = findViewById(R.id.txtCIdate);
-        checkoutdate = findViewById(R.id.txtCOdate);
-        hotel = findViewById(R.id.edtCity);
-        editAdult = findViewById(R.id.editAdult);
-        editChildrent = findViewById(R.id.editChild);
-        search = findViewById(R.id.buttonSearch);
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        checkindate = getView().findViewById(R.id.txtCIdate);
+        checkoutdate = getView().findViewById(R.id.txtCOdate);
+        hotel = getView().findViewById(R.id.edtCity);
+        editAdult = getView().findViewById(R.id.editAdult);
+        editChildrent = getView().findViewById(R.id.editChild);
+        search = getView().findViewById(R.id.buttonSearch);
         //profile = findViewById(R.id.imageButtonAccount);
 
-        ERcity = findViewById(R.id.ERcity);
-        ERadults = findViewById(R.id.ERadults);
-        ERchildrent = findViewById(R.id.ERchildrent);
-        ERcheckin = findViewById(R.id.ERcheckin);
-        ERcheckout = findViewById(R.id.ERcheckout);
+        ERcity = getView().findViewById(R.id.ERcity);
+        ERadults = getView().findViewById(R.id.ERadults);
+        ERchildrent = getView().findViewById(R.id.ERchildrent);
+        ERcheckin = getView().findViewById(R.id.ERcheckin);
+        ERcheckout = getView().findViewById(R.id.ERcheckout);
 
-        txt1 = hotel.getText().toString();
-        txt2 = checkindate.getText().toString();
-        txt3 = checkoutdate.getText().toString();
-        txt4 = editAdult.getText().toString();
 
-        ggmap = findViewById(R.id.ggmap);
 
-//        profile.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                Intent intent = new Intent(timkiem.this, Profile.class);
-//                startActivity(intent);
-//            }
-//        });
+        ggmap = getView().findViewById(R.id.ggmap);
 
+        //gan su kien
         checkindate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(timkiem.this, checkin.class);
-                intent.putExtra("checkoutdate",checkoutdate.getText().toString());
-                intent.putExtra("hotel",hotel.getText().toString());
+                Intent intent = new Intent(getActivity(), checkin.class);
                 startActivity(intent);
             }
         });
@@ -113,9 +101,7 @@ public class timkiem extends AppCompatActivity {
         checkoutdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(timkiem.this, checkout.class);
-                intent.putExtra("checkindate",checkindate.getText().toString());
-                intent.putExtra("hotel",hotel.getText().toString());
+                Intent intent = new Intent(getActivity(), checkout.class);
                 startActivity(intent);
             }
         });
@@ -123,29 +109,30 @@ public class timkiem extends AppCompatActivity {
         ggmap.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(timkiem.this, GoogleMapAPI.class);
+                Intent intent = new Intent(getActivity(), GoogleMapAPI.class);
                 startActivity(intent);
             }
         });
 
-        Intent intent = getIntent();
-        String CIdate = intent.getStringExtra("checkindate");
+       //set cac truong tim kiem
+        String CIdate = AccountManager.checkindate;
         checkindate.setText(CIdate);
 
-        String COdate = intent.getStringExtra("checkoutdate");
+        String COdate = AccountManager.checkoutdate;
         checkoutdate.setText(COdate);
 
-        String hotelname = intent.getStringExtra("hotel");
+        String hotelname = AccountManager.keyword;
         hotel.setText(hotelname);
 
         search.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                if(!isValidCity && !isValidCIdate && !isValidCodate && !isValidAdults && !isValidChildrent && txt1.trim().equals("") && txt2.trim().equals("") && txt3.trim().equals("") && txt4.trim().equals("")){
-                    Toast.makeText(getBaseContext(), "Please check all field again !", Toast.LENGTH_LONG).show();
+                if(!isValidCity && !isValidCIdate && !isValidCodate && !isValidAdults && !isValidChildrent && hotel.getText().toString().trim().equals("") && checkoutdate.getText().toString().trim().equals("")
+                        && checkindate.getText().toString().trim().equals("") && editAdult.getText().toString().trim().equals("")){
+                    Toast.makeText(getContext(), "Please check all field again !", Toast.LENGTH_LONG).show();
                 }else {
-                    Intent intent = new Intent(timkiem.this, hotelResult.class);
+                    Intent intent = new Intent(getContext(), hotelResult.class);
                     intent.putExtra("keyword",hotel.getText().toString());
                     intent.putExtra("checkindate",checkindate.getText().toString());
                     intent.putExtra("checkoutdate",checkoutdate.getText().toString());
@@ -208,5 +195,15 @@ public class timkiem extends AppCompatActivity {
             }
         });
 
+    }
+
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
     }
 }

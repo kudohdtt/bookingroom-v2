@@ -10,10 +10,12 @@ import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Geocoder;
 import android.location.Location;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.SearchView;
 import android.widget.Toast;
 
@@ -35,10 +37,14 @@ import com.google.android.gms.maps.model.MarkerOptions;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.learnadroid.myfirstapp.R;
 import com.learnadroid.myfirstapp.actor.Hotel;
-import com.learnadroid.myfirstapp.databse.ConnectionClass;
+import com.learnadroid.myfirstapp.dangnhap.AccountManager;
+import com.learnadroid.myfirstapp.database.ConnectionClass;
 import com.learnadroid.myfirstapp.timkiemkhachsan.timkiem;
 import com.learnadroid.myfirstapp.timphong.timphong;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -47,8 +53,12 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     private GoogleMap mMap;
     private SearchView searchView;
     private Button back;
+
+
     ProgressDialog progressDialog;
     ConnectionClass connectionClass;
+    ArrayList<Hotel> hotels;
+    Hotel hotel;
 
     private Location currentLocation;
     private FusedLocationProviderClient fusedLocationProviderClient;
@@ -61,7 +71,11 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_maps);
 
+        connectionClass = new ConnectionClass();
+        hotels = new ArrayList<Hotel>();
+
         back = findViewById(R.id.btn_back);
+
         searchView = (SearchView) findViewById(R.id.search_place);
         connectionClass = new ConnectionClass();
         progressDialog = new ProgressDialog(this);
@@ -115,8 +129,6 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
             }
         });
 
-        //searchView.setQuery("Nơ 3", true);
-
         // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
@@ -125,9 +137,8 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     }
 
 
-    private void addHotel(ArrayList<Hotel> hotelList,final GoogleMap googleMap) {
+    private void addHotel(ArrayList<Hotel> hotelList) {
         Toast.makeText(getApplicationContext(), "AddHotelLocation", Toast.LENGTH_LONG).show();
-        mMap = googleMap;
         for (int i = 0; i < hotelList.size(); i++) {
             String location = hotelList.get(i).getLocation();
             if (location != null && !location.equals("")) {
@@ -149,15 +160,13 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                 }
             }
         }
-
         mMap.setOnInfoWindowClickListener(new GoogleMap.OnInfoWindowClickListener() {
             @Override
             public void onInfoWindowClick (Marker marker){
                 int id = (int) marker.getTag();
                 Toast.makeText(getApplicationContext(), "" + id, Toast.LENGTH_LONG).show();
                 Intent intent = new Intent(GoogleMapAPI.this, timphong.class);
-                final String hotelId = Integer.toString(id);
-                intent.putExtra("hotelId",hotelId);
+                AccountManager.hotelid = id;
                 startActivity(intent);
             }
 
@@ -165,7 +174,7 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
 
     }
 
-    private void fetchLastLocation(final GoogleMap googleMap) {
+    private void fetchLastLocation() {
         fusedLocationProviderClient.getLastLocation()
                 .addOnSuccessListener(this, new OnSuccessListener<Location>() {
                     @Override
@@ -175,11 +184,11 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
                             currentLocation = location;
                             Toast.makeText(getApplicationContext(), currentLocation.getLatitude() + " " + currentLocation.getLongitude(), Toast.LENGTH_LONG).show();
 
-                            mMap = googleMap;
                             LatLng latLng = new LatLng(currentLocation.getLatitude(), currentLocation.getLongitude());
                             mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(latLng, 18));
                             mMap.animateCamera(CameraUpdateFactory.newLatLngZoom(latLng, 20));
                             mMap.setMyLocationEnabled(true);
+
                         }
                     }
                 });
@@ -228,28 +237,15 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
             RequestPermision();
             return;
         }
-
+        mMap = googleMap;
         fusedLocationProviderClient = LocationServices.getFusedLocationProviderClient(this);
         progressDialog.setMessage("Loading...");
         progressDialog.show();
-        ArrayList<Hotel> hotels = FakeDataListHotel();
-        addHotel(hotels,googleMap);
-        fetchLastLocation(googleMap);
+        loadHotelOntheMap ld = new loadHotelOntheMap();
+        ld.execute();
+        fetchLastLocation();
         progressDialog.hide();
 
-    }
-
-    private ArrayList<Hotel> FakeDataListHotel() {
-        ArrayList<Hotel> hotelList = new ArrayList<Hotel>();
-        for (int i = 0; i < 3; i++) {
-            hotelList.add(new Hotel(i + 1, "Hotel +" + i, "Hi", 5, null));
-        }
-
-        hotelList.get(0).setLocation("Bến xe Mỹ Đình");
-        hotelList.get(1).setLocation("Đại học Quốc Gia Hà Nội");
-        hotelList.get(2).setLocation("Đại học sư phạm");
-
-        return hotelList;
     }
 
 
@@ -257,4 +253,80 @@ public class GoogleMapAPI extends FragmentActivity implements OnMapReadyCallback
     public void onConnectionFailed(@NonNull ConnectionResult connectionResult) {
 
     }
+
+
+    private class loadHotelOntheMap extends AsyncTask<String, String, String> {
+
+
+        String z = "";
+        boolean isSuccess = false;
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                Connection con = connectionClass.CONN();
+                if (con == null) {
+                    z = "Please check your internet connection";
+                } else {
+                    String query = " select * from hotel";
+                    Statement stmt = con.createStatement();
+                    ResultSet rs = stmt.executeQuery(query);
+
+                    while (rs.next()){
+                        int id = rs.getInt(1);
+                        String name = rs.getString(2);
+                        String location = rs.getString(3);
+                        String address = rs.getString(4);
+                        float star = rs.getFloat(5);
+                        String image1 = rs.getString(6);
+                        int id_image1 = getResources().getIdentifier(image1,"drawable",getPackageName());
+                        String image2 = rs.getString(7);
+                        int id_image2 = getResources().getIdentifier(image2,"drawable",getPackageName());
+                        String image3 = rs.getString(8);
+                        int id_image3 = getResources().getIdentifier(image3,"drawable",getPackageName());
+                        int id_city = rs.getInt(9);
+                        int price = rs.getInt(10);
+                        Boolean km = rs.getBoolean(11);
+                        String city = "";
+
+                        String query2 = "select * from city where id_city ='" + id_city + "'";
+                        try{
+                            Statement st1 = con.createStatement();
+                            ResultSet rs1 = st1.executeQuery(query2);
+                            while (rs1.next()){
+                                city = rs1.getString(2);
+                            }
+                        }catch (Exception e){
+                            z= z+e;
+                        }
+                        hotel = new Hotel(id,name,location,star,address,id_image1,id_image2,id_image3,city,price,km);
+                        hotels.add(hotel);
+                    }
+
+                    isSuccess = true;
+                    z = "Load hotel's location successfull!";
+
+                }
+            } catch (Exception ex) {
+                isSuccess = false;
+                z = "Exceptions" + ex;
+            }
+
+            return z;
+        }
+        @Override
+        protected void onPostExecute(String s) {
+            Toast.makeText(getBaseContext(), "" + z, Toast.LENGTH_LONG).show();
+            //fix loi
+            addHotel(hotels);
+
+        }
+    }
 }
+

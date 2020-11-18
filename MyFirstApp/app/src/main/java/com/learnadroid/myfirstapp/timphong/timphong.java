@@ -16,7 +16,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.learnadroid.myfirstapp.R;
-import com.learnadroid.myfirstapp.roomtype.cacloaiphong;
+import com.learnadroid.myfirstapp.dangnhap.AccountManager;
+import com.learnadroid.myfirstapp.roomtype.roomTypeResult;
 import com.learnadroid.myfirstapp.timkiemkhachsan.checkin;
 import com.learnadroid.myfirstapp.timkiemkhachsan.checkout;
 
@@ -80,22 +81,20 @@ public class timphong extends AppCompatActivity {
         txt3 = checkoutdate.getText().toString();
         txt4 = editAdult.getText().toString();
         //lấy id_hotel mà API gg map và lịch trả về
-        Intent intent1 = getIntent();
-        final String hotelId = intent1.getStringExtra("hotelId");
+
+        final int hotelId = AccountManager.hotelid;
 
         //lấy thời gian checkin checkout mà lịch trả về
-        CIdate = intent1.getStringExtra("checkindate");
+        CIdate = AccountManager.checkindate;
         checkindate.setText(CIdate);
 
-        COdate = intent1.getStringExtra("checkoutdate");
+        COdate = AccountManager.checkoutdate;
         checkoutdate.setText(COdate);
         //xử lý sự kiện
         checkindate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(timphong.this, checkin2.class);
-                intent.putExtra("checkoutdate",checkoutdate.getText().toString());
-                intent.putExtra("hotel",hotelId);
+                Intent intent = new Intent(timphong.this, checkin.class);
                 startActivity(intent);
             }
         });
@@ -103,9 +102,7 @@ public class timphong extends AppCompatActivity {
         checkoutdate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(timphong.this, checkout2.class);
-                intent.putExtra("checkindate",checkindate.getText().toString());
-                intent.putExtra("hotel",hotelId);
+                Intent intent = new Intent(timphong.this, checkout.class);
                 startActivity(intent);
             }
         });
@@ -116,10 +113,7 @@ public class timphong extends AppCompatActivity {
                 if(!isValidCIdate && !isValidCodate && !isValidAdults && !isValidChildrent && txt2.trim().equals("") && txt3.trim().equals("") && txt4.trim().equals("")){
                     Toast.makeText(getBaseContext(), "Please check all field again !", Toast.LENGTH_LONG).show();
                 }else {
-                    Intent intent = new Intent(timphong.this, cacloaiphong.class);
-                    intent.putExtra("holtelId",hotelId);
-                    intent.putExtra("checkindate",CIdate);
-                    intent.putExtra("checkoutdate",COdate);
+                    Intent intent = new Intent(timphong.this, roomTypeResult.class);
                     startActivity(intent);
                 }
             }

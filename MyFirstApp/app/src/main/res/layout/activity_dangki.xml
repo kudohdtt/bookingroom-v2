@@ -11,7 +11,7 @@
         android:id="@+id/frameLayoutdangki"
         android:layout_width="412dp"
         android:layout_height="620dp"
-        android:layout_marginTop="110dp"
+        android:layout_marginTop="108dp"
         android:foreground="#CAFFA726"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"

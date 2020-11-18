@@ -16,18 +16,18 @@ import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.learnadroid.myfirstapp.actor.Hotel;
-import com.learnadroid.myfirstapp.databse.ConnectionClass;
+import com.learnadroid.myfirstapp.dangnhap.AccountManager;
+import com.learnadroid.myfirstapp.database.ConnectionClass;
 import com.learnadroid.myfirstapp.R;
-import com.learnadroid.myfirstapp.roomtype.cacloaiphong;
+import com.learnadroid.myfirstapp.roomtype.roomTypeResult;
 
 
 import java.sql.Connection;
 import java.sql.ResultSet;
-import java.sql.SQLRecoverableException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class ketquatimkiem extends AppCompatActivity {
+public class hotelResult extends AppCompatActivity {
 
     ListView ListViewHotel;
     ArrayList<Hotel> ListHotel;
@@ -69,13 +69,11 @@ public class ketquatimkiem extends AppCompatActivity {
 
         adapter = new hotelListAdapter(this, R.layout.dd_kqtk, ListHotel);
         //lấy id_hotel
-        Intent intent1 = getIntent();
-        keyword = intent1.getStringExtra("keyword");
-        checkindate = intent1.getStringExtra("checkindate");
-        checkoutdate = intent1.getStringExtra("checkoutdate");
-        keyword = "Hà Nội";
+        keyword = AccountManager.keyword;
+        checkindate = AccountManager.checkindate;
+        checkoutdate = AccountManager.checkoutdate;
 
-        //Toast.makeText(getApplicationContext(), "keyword: " + checkindate, Toast.LENGTH_LONG).show();
+        Toast.makeText(getApplicationContext(), "keyword: " + checkindate, Toast.LENGTH_LONG).show();
 
         Anhxa ax = new Anhxa();
         ax.execute();
@@ -84,11 +82,8 @@ public class ketquatimkiem extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Hotel ht = ListHotel.get(position);
-                Intent intent = new Intent(ketquatimkiem.this, cacloaiphong.class);
-                intent.putExtra("keyword",keyword);
-                intent.putExtra("hotelId",Integer.toString(ht.getId()));
-                intent.putExtra("checkindate",checkindate);
-                intent.putExtra("checkoutdate",checkoutdate);
+                AccountManager.hotelid = ht.getId();
+                Intent intent = new Intent(hotelResult.this, roomTypeResult.class);
                 startActivity(intent);
             }
         });
@@ -96,10 +91,7 @@ public class ketquatimkiem extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ketquatimkiem.this, timkiem.class);
-                intent.putExtra("hotel",keyword);
-                intent.putExtra("checkindate",checkindate);
-                intent.putExtra("checkoutdate",checkoutdate);
+                Intent intent = new Intent(hotelResult.this, timkiem.class);
                 startActivity(intent);
             }
         });

@@ -15,25 +15,27 @@ import android.widget.Toast;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.learnadroid.myfirstapp.databse.ConnectionClass;
+import com.learnadroid.myfirstapp.actor.roomType;
+import com.learnadroid.myfirstapp.dangnhap.AccountManager;
+import com.learnadroid.myfirstapp.database.ConnectionClass;
 import com.learnadroid.myfirstapp.R;
-import com.learnadroid.myfirstapp.timkiemkhachsan.ketquatimkiem;
+import com.learnadroid.myfirstapp.timkiemkhachsan.hotelResult;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
 import java.util.ArrayList;
 
-public class cacloaiphong extends AppCompatActivity {
+public class roomTypeResult extends AppCompatActivity {
 
     ListView listViewLoaiphong;
-    ArrayList<LoaiPhong> arrayloaiphong;
-    LoaiPhongAdapter adapter;
+    ArrayList<roomType> arrayloaiphong;
+    roomTypeAdapter adapter;
     ProgressDialog progressDialog;
     ConnectionClass connectionClass;
-    LoaiPhong typeRoom;
+    roomType typeRoom;
     Button back;
-    private String hotelId;
+    private int hotelId;
     private String checkindate;
     private String checkoutdate;
     private String keyword;
@@ -65,13 +67,9 @@ public class cacloaiphong extends AppCompatActivity {
 
         progressDialog = new ProgressDialog(this);
 
-        adapter = new LoaiPhongAdapter(this, R.layout.mau_loai_phong, arrayloaiphong);
-        //lấy thông tin id_hotel và thời gian checkin checkout
-        Intent intent1 = getIntent();
-        hotelId = intent1.getStringExtra("hotelId");
-        checkindate = intent1.getStringExtra("checkindate");
-        checkoutdate = intent1.getStringExtra("checkoutdate");
-        keyword = intent1.getStringExtra("keyword");
+        adapter = new roomTypeAdapter(this, R.layout.mau_loai_phong, arrayloaiphong);
+        //lấy thông tin id_hotel
+        hotelId = AccountManager.hotelid;
 
 //        Toast.makeText(getApplicationContext(), "hotel ID: " + hotelId, Toast.LENGTH_LONG).show();
 //        Toast.makeText(getApplicationContext(), "checkindate: " + checkindate, Toast.LENGTH_LONG).show();
@@ -82,12 +80,9 @@ public class cacloaiphong extends AppCompatActivity {
         listViewLoaiphong.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                LoaiPhong tr = arrayloaiphong.get(position);
-                Intent intent = new Intent(cacloaiphong.this, Xacnhan.class);
-                intent.putExtra("roomtypeId",Integer.toString(tr.getId()));
-                intent.putExtra("hotelId",hotelId);
-                intent.putExtra("checkindate",checkindate);
-                intent.putExtra("checkoutdate",checkoutdate);
+                roomType tr = arrayloaiphong.get(position);
+                Intent intent = new Intent(roomTypeResult.this, roomResult.class);
+                AccountManager.roomtypeId = tr.getId();
                 startActivity(intent);
             }
         });
@@ -95,10 +90,7 @@ public class cacloaiphong extends AppCompatActivity {
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(cacloaiphong.this, ketquatimkiem.class);
-                intent.putExtra("keyword",keyword);
-                intent.putExtra("checkindate",checkindate);
-                intent.putExtra("checkoutdate",checkoutdate);
+                Intent intent = new Intent(roomTypeResult.this, hotelResult.class);
                 startActivity(intent);
             }
         });
@@ -124,7 +116,7 @@ public class cacloaiphong extends AppCompatActivity {
                 } else {
 
                     //lay id
-                    String query= "SELECT * FROM roomtype where exists(select id_roomtype from room where id_hotel="+hotelId+")";
+                    String query= "SELECT * FROM roomtype where id_roomtype in (select id_roomtype from room where id_hotel="+hotelId+")";
 
                     try {
                         Statement stmt = con.createStatement();
@@ -140,7 +132,7 @@ public class cacloaiphong extends AppCompatActivity {
                             float pricesale = price - sale*price;
                             String image = rs.getString(8);
                             int id_image = getResources().getIdentifier(image,"drawable",getPackageName());
-                            typeRoom = new LoaiPhong(id,name,bedType,"Diện tích : "+acreage+" m2",description,"Giá: "+price+"đ","Khuyến mại "+sale*100+"% : "+pricesale+"đ", id_image);
+                            typeRoom = new roomType(id,name,bedType,"Diện tích : "+acreage+" m2",description,"Giá: "+price+"đ","Khuyến mại "+sale*100+"% : "+pricesale+"đ", id_image);
                             arrayloaiphong.add(typeRoom);
                         }
                     } catch (Exception e) {

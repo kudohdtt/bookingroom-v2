@@ -1,6 +1,6 @@
-package com.learnadroid.myfirstapp.roomtype;
+package com.learnadroid.myfirstapp.actor;
 
-public class LoaiPhong {
+public class roomType {
     private int id;
     private String Ten;
     private String Giuong;
@@ -12,7 +12,7 @@ public class LoaiPhong {
 
 
 
-    public LoaiPhong(int id, String ten, String giuong, String dientich, String mota, String gia, String sale, int hinh) {
+    public roomType(int id, String ten, String giuong, String dientich, String mota, String gia, String sale, int hinh) {
         this.id = id;
         Ten = ten;
         Giuong = giuong;

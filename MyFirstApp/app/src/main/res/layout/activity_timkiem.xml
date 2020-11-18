@@ -10,9 +10,10 @@
 
     <FrameLayout
         android:id="@+id/frameLayoutCheckin"
-        android:layout_width="412dp"
-        android:layout_height="555dp"
+        android:layout_width="match_parent"
+        android:layout_height="575.571dp"
         android:layout_marginTop="76dp"
+
         android:foreground="#CAFFA726"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
@@ -220,75 +221,6 @@
         app:layout_constraintTop_toBottomOf="@+id/chiecla"
         app:srcCompat="@drawable/search" />
 
-    <ImageButton
-        android:id="@+id/imageButtonFindRoom"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="40dp"
-        android:layout_marginBottom="14dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/ic_findroom4_foreground" />
-
-    <ImageButton
-        android:id="@+id/imageButtonOrder"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginStart="99dp"
-        android:layout_marginEnd="99dp"
-        android:layout_marginBottom="19dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/imageButtonAccount"
-        app:layout_constraintStart_toEndOf="@+id/imageButtonFindRoom"
-        app:srcCompat="@drawable/ic_order_foreground" />
-
-    <ImageButton
-        android:id="@+id/imageButtonAccount"
-        android:layout_width="60dp"
-        android:layout_height="60dp"
-        android:layout_marginEnd="40dp"
-        android:layout_marginBottom="14dp"
-        android:background="@null"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:srcCompat="@drawable/ic_profile_foreground" />
-
-    <TextView
-        android:id="@+id/textViewFindRoomCO"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="43dp"
-        android:layout_marginBottom="2dp"
-        android:text="@string/t_m_ki_m"
-        android:textAlignment="center"
-        android:textColor="#1BA3F3"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/textViewDaDatCI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="2dp"
-        android:text="@string/t"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/textViewAccountCI"
-        app:layout_constraintStart_toEndOf="@+id/textViewFindRoomCO" />
-
-    <TextView
-        android:id="@+id/textViewAccountCI"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="38dp"
-        android:layout_marginBottom="2dp"
-        android:text="@string/t_i_kho_n"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
     <EditText
         android:id="@+id/txtCIdate"
         android:focusable="false"
@@ -391,6 +323,77 @@
         app:layout_constraintEnd_toEndOf="@+id/editChild"
         app:layout_constraintStart_toStartOf="@+id/editChild"
         app:layout_constraintTop_toBottomOf="@+id/editChild" />
+
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButtonFindRoom"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginStart="40dp"-->
+<!--        android:layout_marginBottom="14dp"-->
+<!--        android:background="@null"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_findroom4_foreground" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButtonOrder"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginStart="99dp"-->
+<!--        android:layout_marginEnd="99dp"-->
+<!--        android:layout_marginBottom="19dp"-->
+<!--        android:background="@null"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/imageButtonAccount"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/imageButtonFindRoom"-->
+<!--        app:srcCompat="@drawable/ic_order_foreground" />-->
+
+<!--    <ImageButton-->
+<!--        android:id="@+id/imageButtonAccount"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:layout_marginEnd="40dp"-->
+<!--        android:layout_marginBottom="14dp"-->
+<!--        android:background="@null"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent"-->
+<!--        app:srcCompat="@drawable/ic_profile_foreground" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewFindRoomCO"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginStart="43dp"-->
+<!--        android:layout_marginBottom="2dp"-->
+<!--        android:text="@string/t_m_ki_m"-->
+<!--        android:textAlignment="center"-->
+<!--        android:textColor="#1BA3F3"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintStart_toStartOf="parent" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewDaDatCI"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginBottom="2dp"-->
+<!--        android:text="@string/t"-->
+<!--        android:textAlignment="center"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toStartOf="@+id/textViewAccountCI"-->
+<!--        app:layout_constraintStart_toEndOf="@+id/textViewFindRoomCO" />-->
+
+<!--    <TextView-->
+<!--        android:id="@+id/textViewAccountCI"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_marginEnd="38dp"-->
+<!--        android:layout_marginBottom="2dp"-->
+<!--        android:text="@string/t_i_kho_n"-->
+<!--        android:textAlignment="center"-->
+<!--        app:layout_constraintBottom_toBottomOf="parent"-->
+<!--        app:layout_constraintEnd_toEndOf="parent" />-->
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

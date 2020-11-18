@@ -14,34 +14,36 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".timkiemkhachsan.comfim"></activity>
+        <activity android:name=".ordered.orderDetail">
+        </activity>
+        <activity android:name=".timkiemkhachsan.comfim" />
         <activity android:name=".timkiemkhachsan.maXacNhan" />
-        <activity android:name=".timkiemkhachsan.ketquatimkiem" />
-        <activity android:name=".timphong.checkout2" />
-        <activity android:name=".timphong.checkin2" />
+        <activity android:name=".timkiemkhachsan.hotelResult" />
 
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="@string/map_key" />
-
-        <activity android:name=".timkiemkhachsan.timkiem">
-
-        </activity>
-        <activity android:name=".roomtype.cacloaiphong" />
-        <activity android:name=".roomtype.Xacnhan" />
+        <activity android:name=".home.MainActivity"/>
+        <activity android:name=".timkiemkhachsan.timkiem"></activity>
+        <activity android:name=".roomtype.roomTypeResult" />
+        <activity android:name=".roomtype.roomResult" />
         <activity android:name=".timkiemkhachsan.checkin" />
         <activity android:name=".timkiemkhachsan.checkout" />
-        <activity android:name=".dangki.dangki" />
+        <activity android:name=".dangki.dangki" >
+        </activity>
         <activity android:name=".dangki.Main3Activity" />
-        <activity android:name=".dangki.Main2Activity" />
-        <activity android:name=".dangnhap.MainActivity" >
+        <activity android:name=".dangki.Main2Activity" >
+
+        </activity>
+        <activity android:name=".dangnhap.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ggMap.GoogleMapAPI" />
+        <activity android:name=".ggMap.GoogleMapAPI">
+        </activity>
         <activity android:name=".timphong.timphong" />
     </application>
 
