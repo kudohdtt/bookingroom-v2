@@ -2,6 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/Documents-Github-bookingroom-v2-MyFirstApp.iml" filepath="$PROJECT_DIR$/Documents-Github-bookingroom-v2-MyFirstApp.iml" group="MyFirstApp" />
+      <module fileurl="file://$PROJECT_DIR$/Github-bookingroom-v2-MyFirstApp.iml" filepath="$PROJECT_DIR$/Github-bookingroom-v2-MyFirstApp.iml" group="MyFirstApp" />
+      <module fileurl="file://$PROJECT_DIR$/app/Github-bookingroom-v2-MyFirstApp-app.iml" filepath="$PROJECT_DIR$/app/Github-bookingroom-v2-MyFirstApp-app.iml" group="MyFirstApp/app" />
+      <module fileurl="file://$PROJECT_DIR$/app/Github-bookingroom-v2-MyFirstApp-app~1.iml" filepath="$PROJECT_DIR$/app/Github-bookingroom-v2-MyFirstApp-app~1.iml" group="MyFirstApp/app" />
       <module fileurl="file://$PROJECT_DIR$/MyFirstApp.iml" filepath="$PROJECT_DIR$/MyFirstApp.iml" group="MyFirstApp" />
       <module fileurl="file://$PROJECT_DIR$/app/MyFirstApp-app.iml" filepath="$PROJECT_DIR$/app/MyFirstApp-app.iml" group="MyFirstApp/app" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="MyFirstApp/app" />
